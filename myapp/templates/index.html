@@ -7,7 +7,7 @@
             <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width">
                     <li class="tab">
-                        <a class="active" href="#drivers">Drviers</a>
+                        <a class="active" href="#drivers">Drivers</a>
                     </li>
                     <li class="tab">
                         <a href="#discounts">Discounts</a>
@@ -117,6 +117,7 @@
                         <div class=" input-field col s6 offset-m3 m3">
                             <select>
                                 <option value="Tx DL" selected>Texas Drivers License</option>
+                                <option value="Tx ID">Texas ID</option>
                                 <option value="Out of state">Out of state</option>
                                 <option value="passport">Passport</option>
                                 <option value="matricula">Matricula</option>
@@ -157,7 +158,7 @@
                         </div>
                     </div>
                     <div class="col offset-m3 m3" id="buttons">
-
+                        <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
                         <a name="next" class="next waves-effect waves-light btn " value="Next" />Next</a>
                     </div>
                 </div>
@@ -222,7 +223,7 @@
                 </div>
                 <div id="points">
                     <h5 class="center-align">Accidents or Tickets?</h5>
-                    <h6 class="center-align">Your record will be verified. If you provide honest information, you may qualify for a discount</h6>
+                    <h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
                     <br>
                     <br> Any accidents or tickets in the past 5 years: &nbsp;&nbsp;&nbsp;
 
@@ -257,6 +258,16 @@
                                 <span class="c2">
                                     <input type="number" min="0" max="4" value="0" name="accidents">
                                 </span>
+                                <br><br> were any of these accidents at fault?
+                                <label>
+                                        <input class="with-gap" name="at_fault" type="radio" value="Yes" />
+                                        <span>Yes</span>
+                                    </label>
+                
+                                    <label>
+                                        <input class="with-gap" name="at_fault" type="radio" value="No" checked/>
+                                        <span>No</span>
+                                    </label><br><br> 
                             </div>
                         </span>
 

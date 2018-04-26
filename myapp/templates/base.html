@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <div id="header">{% block header %}
+  <header id="header">{% block header %}
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
@@ -47,13 +47,14 @@
         </li>
       </ul>
     </div>
-    {% endblock %}</div>
-  <div id="content">{% block content %}{% endblock %}</div>
-  <div id="footer">
+    {% endblock %}</header>
+  <main id="content">{% block content %}{% endblock %}</main>
 
-    {% block footer %}
 
-    <footer class="page-footer hide-on-small-only">
+  {% block footer %}
+
+  <footer class="page-footer hide-on-small-only">
+    <div id="footer">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
@@ -85,21 +86,22 @@
           <a class="grey-text text-lighten-4 right" href="#!">Map</a>
         </div>
       </div>
-    </footer>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<!-- Optional JavaScript -->
+<script type="text/javascript" src="static/js/main.js"></script> {% endblock %}
+</div>
+  </footer>
 
 
 
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-    <!-- Optional JavaScript -->
-    <script type="text/javascript" src="static/js/main.js"></script> {% endblock %}
-  </div>
 </body>
 
 </html>
