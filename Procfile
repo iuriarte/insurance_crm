@@ -1,1 +1,1 @@
-web: python jin.py
+web: python form.py

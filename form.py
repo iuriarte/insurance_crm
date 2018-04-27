@@ -22,7 +22,7 @@ class MainHandler(TemplateHandler):
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    self.render_template("index.html", {})
+    self.render_template("form.html", {})
 
 class PageHandler(TemplateHandler):
   def get(self, page):
