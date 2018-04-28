@@ -1,8 +1,11 @@
-#Clone
 import tornado.ioloop
 import tornado.web
 import tornado.log
+
 import os
+import bcrypt
+import psycopg2
+import json
 
 from jinja2 import \
   Environment, PackageLoader, select_autoescape
@@ -26,15 +29,11 @@ class MainHandler(TemplateHandler):
 
 class PageHandler(TemplateHandler):
   def get(self, page):
-    context = {}
-    if page == 'form-success':
-      context['message'] = "YAY!"
-      
     page = page + '.html'
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    self.render_template(page, context)
+    self.render_template(page, {})
 
 
 class LoginHandler(TemplateHandler):
@@ -43,30 +42,29 @@ class LoginHandler(TemplateHandler):
     self.render_template(page, {})
 
   def post(self):
-    username = self.get_query_argument('username', None)
-    password = self.get_query_argument("password", None)
+    username = self.get_body_argument('username', None)
+    password = self.get_body_argument("password", None)
     conn = psycopg2.connect("dbname=Kappa user=postgres")
     cur = conn.cursor()
     cur.execute("SELECT username, password FROM users WHERE username = %s", [username])
-    user = row = cur.fetchone()
-
-
-    if user and user['password'] and bcrypt.hashpw(password, user['password']) == user['password']:
-      self.set_current_user(username)
-      self.render_template('hello.html', {})
+    user = cur.fetchone()
+    hashed_pass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(8))
+    if user and user[1] and bcrypt.checkpw(password.encode('utf-8'), user[1].encode('utf-8')):
+      # self.set_current_user(username)
+      self.render_template('loginsuccess.html', {})
     else:
       error_msg = u"?error=" + tornado.escape.url_escape("Login incorrect.")
-      self.render_template(u"/login" + error_msg)
+      self.redirect(u"/login" + error_msg)
 
     cur.close()
     conn.close()
 
-  def set_current_user(self, user):
-    print("setting "+user)
-    if user:
-      self.set_secure_cookie("user", tornado.escape.json_encode(user))
-    else:
-      self.clear_cookie("user")
+  # def set_current_user(self, user):
+  #   print("setting "+user)
+  #   if user:
+  #     self.set_secure_cookie("user", tornado.escape.json_encode(user))
+  #   else:
+  #     self.clear_cookie("user")
 
 
 class RegisterHandler(LoginHandler):
@@ -74,9 +72,9 @@ class RegisterHandler(LoginHandler):
     page = page + '.html'
     self.render_template(page, {})
 
-  def post(self):
-    username = self.get_query_argument('username', None)
-    role = self.get_query_argument('role', None)
+  def post(self, err):
+    username = self.get_body_argument('username', None)
+    role = self.get_body_argument('role', None)
     conn = psycopg2.connect("dbname=Kappa user=postgres")
     cur = conn.cursor()
     cur.execute("SELECT username, password FROM users WHERE username = %s", [username])
@@ -85,9 +83,10 @@ class RegisterHandler(LoginHandler):
       error_msg = u"?error=" + tornado.escape.url_escape("Login name already taken")
       self.redirect(u"/login" + error_msg)
     else:
-      password = self.get_query_argument("password", None)
-      hashed_pass = bcrypt.hashpw(password, bcrypt.gensalt(10))
-      cur.execute("INSERT INTO users VALUES (%s, %s, %s)",(username, password, role))
+      password = self.get_body_argument("password", None)
+      hashed_pass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(8))
+      # bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+      cur.execute("INSERT INTO users VALUES (DEFAULT,%s, %s, %s)",(username, hashed_pass, role))
       conn.commit()
       success_msg = u"?success=" + tornado.escape.url_escape("Registered User Successfully")
       self.redirect(u"/register" + success_msg)
@@ -98,7 +97,7 @@ def make_app():
   return tornado.web.Application([
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
     (r"/(login)", LoginHandler),
-    (r"/hello", LoginHandler),
+    (r"/loginsuccess", LoginHandler),
     (r"/(register)", RegisterHandler),
     (r"/", MainHandler)
   ], autoreload=True)
@@ -107,6 +106,6 @@ if __name__ == "__main__":
   tornado.log.enable_pretty_logging()
 
   app = make_app()
-  PORT=int(os.environ.get('PORT', '8888'))
+  PORT=int(os.environ.get('PORT', '8000'))
   app.listen(PORT)
   tornado.ioloop.IOLoop.current().start()
