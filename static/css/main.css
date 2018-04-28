@@ -13,11 +13,6 @@ body {
     display:none;
   }
 
-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  overflow: hidden;
-  height: 200px;
-}
+  .table_display{
+    background-color:#ffebee ;
+  }

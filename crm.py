@@ -1,4 +1,4 @@
-#Clone
+#Clone hjs-crm
 import tornado.ioloop
 import tornado.web
 import tornado.log
@@ -26,26 +26,25 @@ class MainHandler(TemplateHandler):
 
 class PageHandler(TemplateHandler):
   def get(self, page):
-    context = {}
-    if page == 'form-success':
-      context['message'] = "YAY!"
-      
+   
     page = page + '.html'
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    self.render_template(page, context)
+    self.render_template(page,{})
 
 def make_app():
   return tornado.web.Application([
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
-    (r"/", MainHandler)
+    (r"/", MainHandler),
+    (r"/(form)", PageHandler),
+    (r"/(index)", PageHandler)
   ], autoreload=True)
 
 if __name__ == "__main__":
   tornado.log.enable_pretty_logging()
 
   app = make_app()
-  PORT=int(os.environ.get('PORT', '8888'))
+  PORT=int(os.environ.get('PORT', '8080'))
   app.listen(PORT)
   tornado.ioloop.IOLoop.current().start()
