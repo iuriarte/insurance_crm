@@ -1,6 +1,9 @@
 -- CREATE DATABASE kappa
+-- change database to kappa
 
-CREATE TABLE employee (
+CREATE SCHEMA crm
+
+CREATE TABLE crm.employee (
 	-- populated internally
 	id	serial PRIMARY KEY,
 	first_name	varchar(50)	NOT NULL,
@@ -11,16 +14,18 @@ CREATE TABLE employee (
 	email	varchar(50)	NOT NULL,
 	phone	bigint	NOT NULL,
 	active_flag	bit(1)	NOT NULL DEFAULT '1'::bit,
+	user_id int NOT NULL REFERENCES security.users(id),
+	-- user_id comes from security.users.id
 	created_date	timestamp	NOT NULL,
 	-- created_date now() at record creation
 	updated_date	timestamp	NOT NULL
 	-- updated_date now() at record creation and ANY update to record
 );
 
-CREATE TABLE customer (
+CREATE TABLE crm.customer (
 -- populated by client facing quote page and back office employee entry
 	id	serial PRIMARY KEY,
-	primary_agent_id	int	NULL REFERENCES employee(id),
+	primary_agent_id	int	NULL REFERENCES crm.employee(id),
 	first_name	varchar(50)	NOT NULL,
 	last_name	varchar(50)	NOT NULL,
 	birthdate	date	NULL,
@@ -61,11 +66,13 @@ CREATE TABLE customer (
 	-- status 'A = active, I = inactive, P = prospect', status change handled by policy_customer
 	created_date	timestamp	NOT NULL,
 	-- created_date now() at record creation
+	created_by int NULL,
+	-- created_by takes session user_id
 	updated_date	timestamp	NOT NULL
 	-- updated_date now() at record creation and ANY update to record
 );
 
-CREATE TABLE company (
+CREATE TABLE crm.company (
 -- populated by entries to carriers, lien holders, dealerships
 	id	serial	PRIMARY KEY,
 	type	varchar(15)	NOT NULL,
@@ -81,12 +88,12 @@ CREATE TABLE company (
 	zip	int	NULL
 );
 
-CREATE TABLE policy (
+CREATE TABLE crm.policy (
 	-- populated by quote or policy page
 	id	serial	PRIMARY KEY,
-	policy_agent_id	int	NOT NULL REFERENCES employee(id),
+	policy_agent_id	int	NOT NULL REFERENCES crm.employee(id),
 	-- policy_agent_id is the employee id from user creating policy
-	carrier_id	int	NOT NULL REFERENCES company(id),
+	carrier_id	int	NOT NULL REFERENCES crm.company(id),
 	type	varchar(30)	NOT NULL,
 	quote_number varchar(50) NULL,
 	quote_amt real NULL,
@@ -96,8 +103,11 @@ CREATE TABLE policy (
 	-- created_date now() at record creation
 	effective_date	timestamp NULL,
 	first_payment_date	timestamp	NULL,
+	policy_term int NULL,
+	-- policy_term (1, 6, or 12 months) 
 	renewal_date	timestamp NULL,
-	end_date	timestamp NULL,
+	-- renewal_date calculated by effective_date + interval '%(months)s months', {'months': policy_term}
+	-- e.g. now() + interval '6 months'
 	status	varchar(15)	NOT NULL DEFAULT 'Quote',
 	-- status 'Quote, Autopay, Non-Pay, Renewal, Charge, Cancelled'
 	/* if status updated to cancelled
@@ -117,13 +127,37 @@ CREATE TABLE policy (
 	-- updated_date now() at record creation and ANY update to record
 );
 
+CREATE TABLE crm.policy_payment (
+	-- populated when policy status changed from quote to autopay, nonpay, renewal
+	-- one line for each payment month in terms with default status = U
+	id	serial	PRIMARY KEY,
+	policy_id int	NOT NULL REFERENCES crm.policy(id),
+	payment_number	int	NOT NULL,	
+	-- payment_number (1 for 1st payment, 2 for second payment, etc)
+	/* 
+	for i in range(0, policy.payment_term):
+		INSERT INTO policy_payment VALUES (DEFAULT, @policy_id, i, ...)
+	*/
+	payment_date	timestamp	NOT NULL,
+	--payment_date is date payment is due for payment number
+	-- payment_date is policy.created_date + interval 'payment_number months',
+	-- policy.created_date + interval '2 months' for payment number 2 for policy_id
+	status	char(1)	NOT NULL	DEFAULT 'P',
+	-- status 'P = Paid, U = Unpaid, C = Cancelled'
+	created_date	timestamp NOT NULL,
+	-- created_date now() at record creation
+	updated_date	timestamp	NOT NULL,
+	-- updated_date now() at record creation and ANY update to record
+	updated_by	int	NOT NULL
+	-- updated_by takes session user_id
+);
 
 
-CREATE TABLE policy_customer (
+CREATE TABLE crm.policy_customer (
 	-- populated by drivers page
 	id	serial	PRIMARY KEY,
-	policy_id	int	NOT NULL REFERENCES policy(id),
-	customer_id	int	NOT NULL REFERENCES customer(id),
+	policy_id	int	NOT NULL REFERENCES crm.policy(id),
+	customer_id	int	NOT NULL REFERENCES crm.customer(id),
 	primary_flag	bit(1)	NOT NULL,
 	-- primary_flag '1=primary, 0=other',
 	relation	varchar(50)	NULL,
@@ -143,10 +177,10 @@ then (UPDATE customer SET status = 'I' WHERE id = @customer_id)
 	-- updated_date now() at record creation and ANY update to record
 );
 
-CREATE TABLE car (
+CREATE TABLE crm.car (
 -- populated by vehicles page
 	id	serial	PRIMARY KEY,
-	lienholder_id	int	NULL REFERENCES company(id),
+	lienholder_id	int	NULL REFERENCES crm.company(id),
 	-- lienholder_id comes from lien holder page, populate with company(id)
 	/* if
 	(SELECT id from company where name = @company_name) is null then create new company record
@@ -166,11 +200,11 @@ CREATE TABLE car (
 	-- updated_date now() at record creation and ANY update to record
 );
 
-CREATE TABLE coverage (
+CREATE TABLE crm.coverage (
 	-- populated by coverage page
 	id	serial	PRIMARY KEY,
-	policy_id int	NOT NULL REFERENCES policy(id),
-	car_id	int	NOT NULL REFERENCES car(id),
+	policy_id int	NOT NULL REFERENCES crm.policy(id),
+	car_id	int	NOT NULL REFERENCES crm.car(id),
 	type	varchar(25)	NOT NULL,
 	-- type 'Liability, Full Comprehensive, Full Collision',
 	deductible_amount	real	NULL,
@@ -184,10 +218,10 @@ CREATE TABLE coverage (
 );
 
 
-CREATE TABLE contact_info (
+CREATE TABLE crm.contact_info (
 	-- populated by contact page
 	id	serial	PRIMARY KEY,
-	customer_id	int NOT NULL REFERENCES customer(id),
+	customer_id	int NOT NULL REFERENCES crm.customer(id),
 	type	varchar(20)	NOT NULL,
 	-- type 'Mobile Phone, Home Phone, Fax Number, Work Address'
 	value	varchar(255)	NOT NULL,
@@ -197,26 +231,75 @@ CREATE TABLE contact_info (
 	-- updated_date now() at record creation and ANY update to record
 );
 
-CREATE TABLE note (
-	-- populated by notes section on customer page
+CREATE TABLE crm.payment_info (
 	id	serial	PRIMARY KEY,
-	customer_id	int	NOT NULL REFERENCES customer(id),
+	customer_id	int NOT NULL REFERENCES crm.customer(id),
+	type	char(2)	NOT NULL,	
+	-- type 'CC = Credit Card, DD = Direct Deposit'
+	name	varchar(255)	NOT NULL,
+	-- name'if CC then name on CC, if DD then bank name'
+	number	varchar(255)	NOT NULL,
+	-- number 'if CC then CC number, if DD then routing-account number (combined separated by dash); all encrypted'
+	last_four	char(4)	NULL,
+	-- last_four 'if CC then last four digits before encryption'
+	cvv	varchar(5)	NULL,
+	-- cvv 'if CC then not null, else null',
+	expiration_date	timestamp	NULL,	
+	-- expiration_date 'if CC then not null, else null',
 	created_date	timestamp	NOT NULL,
 	-- created_date now() at record creation
-	note	varchar(255)	NOT NULL,
-	first_id	bigint	NULL,
-	-- if new note, first_id == id
-	-- if note is updated, the new note record should hold the id of the first note version
-	sequence_number	int NULL	DEFAULT 0
-	-- if note is updated, the new note record should hold the previous note sequence_number + 1
-	/*
-	SELECT max(sequence_number)+1 FROM note WHERE first_id = @note_id
-	*/
+	active_flag	bit(1)	NOT NULL DEFAULT '1'::bit
+	-- in future will need job to monitor if expiration_date > now() then active_flag = 0, to remind the user of expired info
 );
 
-CREATE TABLE rep (
+CREATE TABLE crm.note (
+	-- populated by notes section on customer page
 	id	serial	PRIMARY KEY,
-	company_id	int	NULL REFERENCES company(id),
+	customer_id	int	NOT NULL REFERENCES crm.customer(id),
+	created_date	timestamp	NOT NULL,
+	-- created_date now() at record creation
+	note	varchar(255) NULL,
+	created_by int NOT NULL,
+	-- created_by is the user id creating the note, from employee(id)
+	updated_date timestamp NOT NULL
+	-- updated_date now() at record creation and ANY update to record
+);
+
+/* for new note creation
+INSERT INTO audit_header VALUES (DEFAULT, 'note', note.id, 'create', employee.id, employee.first_name + ' ' + employee.last_name, now());
+INSERT INTO audit_detail VALUES (DEFAULT, (select id from audit_header where entity = 'note' and record_id = @note.id), 'customer_id', null, note.customer_id, 'int');
+INSERT INTO audit_detail VALUES (DEFAULT, (select id from audit_header where entity = 'note' and record_id = @note.id), 'note', null, note.note, 'varchar(255)');
+*/
+/* for note update
+INSERT INTO audit_header VALUES (DEFAULT, 'note', note.id, 'update', employee.id, employee.first_name + ' ' + employee.last_name, now());
+INSERT INTO audit_detail VALUES (DEFAULT, (select id from audit_header where entity = 'note' and action = 'update' and record_id = @note.id and changed_at = @note.updated_date), 'note', (select new_value from audit_detail join audit_header on audit_header.id = audit_detail.header_id where audit_header.record_id = @note.id and audit_header.changed_at = max(changed_at)), note.note, 'varchar(255)');
+*/
+/* for note deletion
+INSERT INTO audit_header VALUES (DEFAULT, 'note', note.id, 'destroy', employee.id, employee.first_name + ' ' + employee.last_name, now());
+*/
+
+CREATE TABLE crm.task (
+	-- populated from tasks for a customer
+	id	serial	PRIMARY KEY,
+	note_id	int	NOT NULL REFERENCES crm.note(id),
+	category	varchar(30)	NOT NULL,
+	-- category 'pop, requote, contract, other',
+	created_date	timestamp	NOT NULL,
+	-- created_date now() at record creation
+	created_by	int	NOT NULL,
+	-- created_by takes session user id from employee(id)
+	due_date	timestamp	NOT NULL,
+	assigned_to	int	NOT NULL,	
+	-- assigned_to 'if not specified, = created_by',
+	completed_flag	bit(1)	NOT NULL DEFAULT '0'::bit,	
+	-- completed_flag changes to 1 when marked complete
+	updated_date	timestamp	NOT NULL
+	-- updated_date now() at record creation and ANY update to record
+);
+
+CREATE TABLE crm.rep (
+	id	serial	PRIMARY KEY,
+	company_id	int	NULL REFERENCES crm.company(id),
 	/* if
 	(SELECT id from company where name = @company_name) is null then create new company record
 	*/
@@ -229,11 +312,11 @@ CREATE TABLE rep (
 	comments	varchar(255)	NULL
 );
 
-CREATE TABLE policy_cars (
+CREATE TABLE crm.policy_cars (
 	-- populated by vehicles page, coverage page
 	id	serial	PRIMARY KEY,
-	policy_id	int	NOT NULL REFERENCES policy(id),
-	car_id	int	NOT NULL REFERENCES car(id),
+	policy_id	int	NOT NULL REFERENCES crm.policy(id),
+	car_id	int	NOT NULL REFERENCES crm.car(id),
 	pip_flag	bit(1)	NOT NULL	DEFAULT '0'::bit,
 	-- updated by coverage page
 	uninsured_motor_flag	bit(1)	NOT NULL	DEFAULT '0'::bit,
@@ -251,16 +334,30 @@ CREATE TABLE policy_cars (
 );
 
 
-CREATE TABLE audit (
-	-- future scope
+CREATE TABLE crm.audit_header (
 	id	serial	PRIMARY KEY,
-	entity	varchar(25)	NOT NULL,
-	field	varchar(50)	NOT NULL,
-	type	varchar(10)	NOT NULL,
-	-- type 'create, update, destroy',
-	old_value	varchar(255)	NULL,
-	new_value	varchar(255)	NULL,
-	updated_by_id	int	NOT NULL,
-	created_date	timestamp	NOT NULL
+	entity	varchar(50)	NOT NULL,
+	-- entity is table name
+	record_id	int	NOT NULL,
+	action	varchar(10)	NOT NULL,
+	-- action 'create, update, destroy',
+	user_id	int	NOT NULL,
+	-- user_id comes from employee(id) of session user who made change
+	user_name	varchar(255)	NOT NULL,
+	-- user_name 'employee.first_name + ' ' + employee.last_name',
+	changed_at	timestamp	NOT NULL
+	-- changed_at is now() at record creation
 );
 
+CREATE TABLE crm.audit_detail (
+	-- no detail if audit_header.action = destroy
+	id	serial	PRIMARY KEY,
+	header_id	int	NOT NULL REFERENCES crm.audit_header(id),
+	field	varchar(50)	NOT NULL,
+	-- field is column name
+	old_value	varchar(255)	NULL,
+	-- old_value is null unless audit_header.action = update
+	new_value	varchar(255)	NOT NULL,
+	value_type	varchar(100)	NOT NULL
+	-- value_type is data type
+);
