@@ -26,21 +26,19 @@ class MainHandler(TemplateHandler):
 
 class PageHandler(TemplateHandler):
   def get(self, page):
-    context = {}
-    if page == 'form-success':
-      context['message'] = "YAY!"
-      
+   
     page = page + '.html'
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    self.render_template(page, context)
+    self.render_template(page,{})
 
 def make_app():
   return tornado.web.Application([
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
-    (r"/", MainHandler)
-    # (r"/form", PageHandler)
+    (r"/", MainHandler),
+    (r"/(form)", PageHandler),
+    (r"/(index)", PageHandler)
   ], autoreload=True)
 
 if __name__ == "__main__":
