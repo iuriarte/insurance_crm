@@ -1,340 +1,370 @@
-<html>
-
-
-
-<!--<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
-<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
--->
-
-<script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
-<!-- jQuery easing plugin -->
-<script src="http://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
-
-
-<script type="text/javascript" src="static/js/main.js"></script>
-
-<body>
-
+{% extends "base_crm.html" %} {% block title %}Quote Request{% endblock %} {% block content %}
 <!-- multistep form -->
-<form id="msform">
+<div class="container z-depth-5" style="margin-top:80px;">
 
-	
-	<!-- progressbar -->
-	<ul id="progressbar">
-		<li class="active">Drivers</li>
-		<li>Discounts</li>
-		<li>Points</li>
-		<li>Vehicles</li>
-		<li>Coverage</li>
-		<li>Lein Holder</li>
-	</ul>
-	<!-- fieldsets -->
-	<fieldset id="driver_info">
-	
-		<h2 class="fs-title">Primary Driver information</h2>
-		<h3 class="fs-subtitle">This is step 1</h3>
-		
-		<span class="level">
-		<input class="c1" type="text" name="first_name" placeholder="First Name" required/>
-		<input class="c2" type="text" name="last_name" placeholder="Last Name" required/>
-		</span>
+    <form class="col s6" action="submit" method="post" id="form">
+        <div class="card">
+            <div class="card-tabs">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab">
+                        <a class="active" href="#drivers">Drivers</a>
+                    </li>
+                    <li class="tab">
+                        <a href="#discounts">Discounts</a>
+                    </li>
+                    <li class="tab">
+                        <a href="#points">Points</a>
+                    </li>
+                    <li class="tab">
+                        <a href="#vehicles">Vehicles</a>
+                    </li>
+                    <li class="tab">
+                        <a href="#coverages">Coverages</a>
+                    </li>
+                    <li class="tab">
+                        <a href="#lienholder">Lien Holder</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="card-content">
+                Some stuff here
+            </div> -->
+            <div class="card-content grey lighten-4">
+                <div id="drivers">
+                    <h5 class="center-align">Primary Driver information</h5>
+                    <h6 class="center-align">This is step 1</h6>
+                    <div class="row">
+                        <div class="input field col s6 offset-m3 m3">
+                            <input id="first_name" type="text" class="validate">
+                            <label for="first_name">First Name</label>
+                        </div>
 
-		<span class="level">
-		<div class="wrapper">
-		<span class="tooltip">Where can we reach you?</span>
+                        <div class="input field col s6  m3">
+                            <input id="last_name" type="text" class="validate">
+                            <label for="first_name">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input field col s6 offset-m3 m3">
+                            <input id="cell_phone" type="text" class="validate">
+                            <label for="cel_phone">cell phone</label>
+                        </div>
 
-		<input class="c1" type="tel" name="cell" placeholder="Cell Phone" required/>
-		</div>
-		<div class="wrapper">
-			<span class="tooltip">do you check this regularly?</span>
-			<input class="c2" type="email" name="email" placeholder="E-mail" required/>
-		</div>
-		</span>
-		
-		<span class="level">
-		<span class="c1" id="radios" required>
-			<input type="radio" name="gender" value="male" />Male
-			<br>
-			<input type="radio" name="gender" value="female">Female
-		</span>
-		<div class="wrapper">
-			<span class="c2" id="radios" required>
-			<input type="radio" name="married" value="single" />Single
-			<br>
-			<input type="radio" name="married" value="married">Married (civil union)
-			<span class="tooltip">You may qualify for a marriage discount, you will need to add your spouse, but can exclude them if desired</span>
-			</span>
-		</div>
-		</span>
-		<span class="level">
-		
-		<span class="c1" id="selects">Date of Birth:
-		<br>
-		<input type="date" name="DOB" required/>
-		</span>
-		<span class="c2" id="selects">Relation to primary driver:
-			<br>
-				<select name="relation" id="selects_field">
-				<option value="self">self</option>
-				<option value="spouse">spouse/common law</option>
-				<option value="sibling">sibling</option>
-				<option value="parent">parent</option>
-				<option value="child">child</option>
-				<option value="other">other</option>
-			</select>
-		</span>
-		</span>
-		<span class="level">
-		<span class="c1" id="selects">Form of ID (Choose one):
-		<select name="ID_card" id="selects_field" >
-			<option value="Tx_DL">Texas Drivers License</option>
-			<option value="Tx_ID">Texas ID</option>
-			<option value="Other_ST_DL">Out of State</option>
-			<option value="PASSPORT">Passport</option>
-			<option value="MATRICULA">Matricula</option>
-			<option value="INTERNATIONAL">International Drivers License</option>
-			<option value="NO_ID">No ID</option>
-		</select>
-		</span>
-		<input style="margin-top:22px" class="c2" type="text" name="DL_NO" placeholder="ID Number" required/>
-		</span>
+                        <div class="input field col s6 m3">
+                            <input id="email" type="text" class="validate">
+                            <label for="email">Email</label>
+                        </div>
 
-		<span class="level">
-				<div class="wrapper">
-			<span class="tooltip">Please provide the address where the car will be kept at night</span>
-		<input class="c1" type="text" name="address" placeholder="Street Address" required/>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col s6 offset-m3 m3">
 
-		<input class="c2" type="text" name="city" placeholder="City" required/>
-		</div>
-		</span>
-		<span class="level">
-		<input class="c1" type="text" name="state" list="states" placeholder="State" />
-		<input class="c2" type="text" name="zip" placeholder="Zip Code" />
-		</span>
-		
-		<span id="buttons">
-		<input type="button" name="next" class="next action-button" value="Next" />
-		</span>
+                            <p>
+                                <label>
+                                    <input class="with-gap" name="gender" type="radio" value="male" checked />
+                                    <span>Male</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="with-gap" name="gender" type="radio" value="female" />
+                                    <span>Female</span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="col s6 m3">
+                            <p>
+                                <label>
+                                    <input class="with-gap" name="marrital_status" type="radio" value="single" checked />
+                                    <span>Single</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input class="with-gap" name="marrital_status" type="radio" value="Married" />
+                                    <span>Married</span>
+                                </label>
+                            </p>
+
+                        </div>
+
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+
+                        <div class="col s6 offset-m3 m3">
+                            <label for="birthdate" class>birthdate</label>
+                            <input id="birthdate" type="text" class="datepicker">
 
 
-	</fieldset>
+                        </div>
 
-	<fieldset id="discounts">
-		<h2 class="fs-title">Discounts</h2>
-		<h3 class="fs-subtitle">Lets see what discounts you qualify for</h3>
-		<div class="wrapper">
-			<span class="tooltip">Your name or your spouse's name must appear on the deed.</span>
-			Are you a Home Owner: &nbsp;&nbsp;&nbsp;
-			<input type="radio" name="Home_Owner" value="Yes" />Yes
-			<input type="radio" name="Home_Owner" value="No" checked/>No
-		</div>
-		<div class="wrapper">
-			<span class="tooltip">If you are listed on someone else's policy, or your previous policy recently lapsed (29 days or less) you can still qualify for a discount.</span>
-			<br>Are you currently Insured (personal auto): &nbsp;
-			<input type="radio" name="currently_insured" value="Yes" />Yes
-			<input type="radio" name="currently_insured" value="No" checked/>No
-		</div>
+                        <div class=" input-field col s6 m3">
+                            <select>
+                                <option class="flow-text" value="self" selected>Self</option>
+                                <option value="spouse">Spouse/common law</option>
+                                <option value="sibiling">Sibiling</option>
+                                <option value="parent">Parent</option>
+                                <option value="child">Child</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <label>Relation to primary driver:</label>
+                        </div>
+                    </div>
 
-		<div class="optional" id="pop">
-			<span class="level">
-			<div class="wrapper">
-				<br>
-				<br>
-				<span class="tooltip">6 and 12 months qualify you for a discount. You will need to provide proof of prior insurance, such as "Insurance ID cards" in order to have the discount applied.</span>
-			<span class="c1">How long have you had auto insurance (without a lapse in coverage) 
-				</span>
-			<span class="c2">
-			<select  name="length" id="selects_field">
-				<option value="less_than_6">Less than 6 months</option>
-				<option value="6_months">6 to 11 months</option>
-				<option value="12_months">12 months or longer</option>
+                    <div class="row">
+                        <div class=" input-field col s6 offset-m3 m3">
+                            <select>
+                                <option value="Tx DL" selected>Texas Drivers License</option>
+                                <option value="Tx ID">Texas ID</option>
+                                <option value="Out of state">Out of state</option>
+                                <option value="passport">Passport</option>
+                                <option value="matricula">Matricula</option>
+                                <option value="International DL">International Drivers License</option>
+                                <option value="no ID">No ID</option>
+                            </select>
+                            <label>Form of ID (Choose one):</label>
+                        </div>
+                        <div class="input field col s6 m3">
+                            <label for="ID_No">ID Number</label>
+                            <input id="ID_No" type="text" class="validate">
 
-			</select></span>
+                        </div>
 
-		</div>
-		</span>
+                    </div>
 
-		<input type="text" name="carrier" placeholder="with who? (Geico, progressive, etc...)" />
+                    <div class="row">
+                        <div class="input field col s6 offset-m3 m3">
+                            <input id="street" type="text" class="validate">
+                            <label for="street">Street Address</label>
+                        </div>
 
-		</div>
+                        <div class="input field col s6 m3">
+                            <input id="city" type="text" class="validate">
+                            <label for="city">City</label>
+                        </div>
+                    </div>
 
-		<span id="buttons">
-		<input type="button" name="previous" class="previous action-button" value="Previous" />
-		<input type="button" name="next" class="next action-button" value="Next" />
-		</span>
-	</fieldset>
+                    <div class="row">
+                        <div class="input field col s6 offset-m3 m3">
+                            <input id="state" type="text" class="autocomplete">
+                            <label for="state">State</label>
+                        </div>
 
-	<fieldset id="points">
-		<h2 class="fs-title">Accidents or Tickets?</h2>
-		<h3 class="fs-subtitle">Your record will be verified. If you provide honest information, you may qualify for a discount</h3>
+                        <div class="input field col s6 m3">
+                            <input id="zip" type="text" class="validate">
+                            <label for="zip">Zip Code</label>
+                        </div>
+                    </div>
+                    <div class="col offset-m3 m3" id="buttons">
+                        <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                        <a name="next" class="next waves-effect waves-light btn " value="Next" />Next</a>
+                    </div>
+                </div>
+                <div id="discounts">
+                    <h5 class="center-align">Discounts</h5>
+                    <h6 class="center-align">Lets see what discounts you qualify for</h6>
+                    <div>Are you a Home Owner: &nbsp;&nbsp;&nbsp;
 
+                        <label>
+                            <input class="with-gap" name="homeowner" type="radio" value="owns" />
+                            <span>Yes</span>
+                        </label>
 
-		<div class="wrapper">
-			<span class="tooltip">Responding honestly may provide a full disclosure discount.</span>
-			<br>Any accidents or tickets in the past 3 years? &nbsp;
-			<input type="radio" name="tickets_accidents" value="Yes" />Yes
-			<input type="radio" name="tickets_accidents" value="No" checked/>No
-		</div>
+                        <label>
+                            <input class="with-gap" name="homeowner" type="radio" value="rents" checked/>
+                            <span>No</span>
+                        </label>
+                    </div>
+                    <div>
+                        <span class="tooltipped" data-position="top" data-tooltip="6 and 12 months qualify you for a discount. You will need to provide proof of prior insurance,
+                    such as 'Insurance ID cards' in order to have the discount applied.">Are you currently Insured (personal auto):</span> &nbsp;
 
-		<div class="optional" id="accidents">
-			<span class="level">
-			<div class="wrapper">
-			<span class="tooltip"></span>
-			<br>
-			<span class="c1">How many tickets have you had in the past 3 years?</span>
-			<span class="c2"><input type="number" min="0" max="4" value="0" name="ticekts"></span>
-
-		</div>
-		</span>
-
-		<span class="level">
-			<div class="wrapper">
-				<span class="tooltip"></span>
-		<br>
-		<span class="c1">How many accidents have you had in the past 3 years?</span>
-		<span class="c2"><input type="number" min="0" max="4" value="0" name="accidents"></span>
-		</div>
-		</span>
-
-		</div>
-
-
-		<span id="buttons">
-		<input type="button" name="previous" class="previous action-button" value="Previous" />
-		<input type="button" name="next" class="next action-button" value="Next" />
-		</span>
-	</fieldset>
-
-
-	<fieldset id="vins">
-		<h2 class="fs-title">Vehicles</h2>
-		<h3 class="fs-subtitle">What Vehicle are we insuring today?</h3>
-
-		<input class="c1" type="text" name="VIN" placeholder="(VIN) Vehicle Identification Number" required />
-		<input class="c2" type="text" name="year" placeholder="year" />
-		<input class="c1" type="text" name="brand" placeholder="brand" />
-		<input class="c2" type="text" name="model" placeholder="model" />
-
-		<span id="buttons">
-		<input type="button" name="previous" class="previous action-button" value="Previous" />
-		<input type="button" name="next" class="next action-button" value="Next" />
-		</span>
-	</fieldset>
-
-	<fieldset id="coverage">
-		<h2 class="fs-title">Coverage</h2>
-		<h3 class="fs-subtitle">How much coverage do you want?</h3>
-
-		<span class="c1" id="selects">Desired coverage:
-			<br>
-				<select name="coverage" id="selects_field">
-				<option value="liability">Liability Only</option>
-				<option value="full_coverage">Comprihensive/Collision(Full Coverage)</option>
-			</select>
-		</span>
-		<div class="optional" id="full_cover">
-			<span class="c2" id="selects">Desired Deductible:
-			<br>
-				<select name="deductible" id="selects_field">
-				<option value="500">$500.00</option>
-				<option value="1000">$1,000.00</option>
-			</select>
-		</span>
-
-			<div style="text-align:left">
-				<br>
-				<h3>Additional coverage:</h3>
-				<br>
-				<input type="checkbox" name="PIP" value="PIP">Personal Injury Protection (PIP)
-				<br>
-				<input type="checkbox" name="UM" value="UM">Uninsured Motorist
-				<br>
-				<input type="checkbox" name="RENTAL" value="Rental">Rental
-				<br>
-				<input type="checkbox" name="Towing" value="Towing">Towing
-			</div>
-		</div>
-
-		<span id="buttons">
-		<input type="button" name="previous" class="previous action-button" value="Previous" />
-		<input type="button" name="next" class="next action-button" value="Next" />
-		</span>
-	</fieldset>
-
-	<fieldset id="leins">
-		<h2 class="fs-title">Lein Holder (optional)</h2>
-		<h3 class="fs-subtitle">Who are you financing your vehilce with?</h3>
-
-		<input class="c1" type="text" name="lein_holder_name" placeholder="Lein Holder Name" />
-		<input class="c2" type="text" name="lein_holder_address" placeholder="Lein Holder Address" />
-		<input class="c1" type="tel" name="lein_holder_phone" placeholder="Lein Holder Phone" />
-		<input class="c2" type="tel" name="lein_holder_fax" placeholder="Lein Holder Fax" />
-		<span id="buttons">
-		<input type="button" name="previous" class="previous action-button" value="Previous" />
-		<input type="submit" name="submit" class="submit action-button" value="Submit" />
-		</span>
-	</fieldset>
-
-</form>
+                        <label>
+                            <input class="with-gap" name=currently_insured type="radio" value="Yes" />
+                            <span>Yes</span>
+                        </label>
 
 
-<datalist id="states">
-	<option value="AL">Alabama</option>
-	<option value="AK">Alaska</option>
-	<option value="AZ">Arizona</option>
-	<option value="AR">Arkansas</option>
-	<option value="CA">California</option>
-	<option value="CO">Colorado</option>
-	<option value="CT">Connecticut</option>
-	<option value="DC">District of Columbia</option>
-	<option value="DE">Delaware</option>
-	<option value="FL">Florida</option>
-	<option value="GA">Georgia</option>
-	<option value="HI">Hawaii</option>
-	<option value="ID">Idaho</option>
-	<option value="IL">Illinois</option>
-	<option value="IN">Indiana</option>
-	<option value="IA">Iowa</option>
-	<option value="KS">Kansas</option>
-	<option value="KY">Kentucky</option>
-	<option value="LA">Louisiana</option>
-	<option value="ME">Maine</option>
-	<option value="MD">Maryland</option>
-	<option value="MA">Massachusetts</option>
-	<option value="MI">Michigan</option>
-	<option value="MN">Minnesota</option>
-	<option value="MS">Mississippi</option>
-	<option value="MO">Missouri</option>
-	<option value="MT">Montana</option>
-	<option value="NE">Nebraska</option>
-	<option value="NV">Nevada</option>
-	<option value="NH">New Hampshire</option>
-	<option value="NJ">New Jersey</option>
-	<option value="NM">New Mexico</option>
-	<option value="NY">New York</option>
-	<option value="NC">North Carolina</option>
-	<option value="ND">North Dakota</option>
-	<option value="OH">Ohio</option>
-	<option value="OK">Oklahoma</option>
-	<option value="OR">Oregon</option>
-	<option value="PA">Pennsylvania</option>
-	<option value="RI">Rhode Island</option>
-	<option value="SC">South Carolina</option>
-	<option value="SD">South Dakota</option>
-	<option value="TN">Tennessee</option>
-	<option value="TX">Texas</option>
-	<option value="UT">Utah</option>
-	<option value="VT">Vermont</option>
-	<option value="VA">Virginia</option>
-	<option value="WA">Washington</option>
-	<option value="WV">West Virginia</option>
-	<option value="WI">Wisconsin</option>
-	<option value="WY">Wyoming</option>
-</datalist>
+                        <label>
+                            <input class="with-gap" name=currently_insured type="radio" value="No" checked />
+                            <span>No</span>
+                        </label>
+                    </div>
+                    <div class="optional" id="pop">
+                        <span class="level">
+                            <div class="wrapper">
+                                <br>
+                                <br>
+                                <span class="tooltip"></span>
+                                <span class="c1">How long have you had auto insurance (without a lapse in coverage)
+                                </span>
+                                <span class="c2">
+                                    <select name="length" id="selects_field">
+                                        <option value="less_than_6">Less than 6 months</option>
+                                        <option value="6_months">6 to 11 months</option>
+                                        <option value="12_months">12 months or longer</option>
+                                    </select>
+                                </span>
+
+                            </div>
+                        </span>
+
+                        <input type="text" name="carrier" placeholder="with who? (Geico, progressive, etc...)" />
+
+                    </div>
+
+                    <div id="buttons">
+
+                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
+                        <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
+                    </div>
+                </div>
+                <div id="points">
+                    <h5 class="center-align">Accidents or Tickets?</h5>
+                    <h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
+                    <br>
+                    <br> Any accidents or tickets in the past 5 years: &nbsp;&nbsp;&nbsp;
+
+                    <label>
+                        <input class="with-gap" name="tickets_accidents" type="radio" value="Yes" />
+                        <span>Yes</span>
+                    </label>
+
+                    <label>
+                        <input class="with-gap" name="tickets_accidents" type="radio" value="No" checked/>
+                        <span>No</span>
+                    </label>
+
+                    <div class="optional" id="accidents">
+                        <span class="level">
+                            <div class="wrapper">
+                                <span class="tooltip"></span>
+                                <br>
+                                <span class="c1">How many tickets have you had in the past 3 years?</span>
+                                <span class="c2">
+                                    <input type="number" min="0" max="4" value="0" name="ticekts">
+                                </span>
+
+                            </div>
+                        </span>
+
+                        <span class="level">
+                            <div class="wrapper">
+                                <span class="tooltip"></span>
+                                <br>
+                                <span class="c1">How many accidents have you had in the past 3 years?</span>
+                                <span class="c2">
+                                    <input type="number" min="0" max="4" value="0" name="accidents">
+                                </span>
+                                <br><br> were any of these accidents at fault?
+                                <label>
+                                        <input class="with-gap" name="at_fault" type="radio" value="Yes" />
+                                        <span>Yes</span>
+                                    </label>
+                
+                                    <label>
+                                        <input class="with-gap" name="at_fault" type="radio" value="No" checked/>
+                                        <span>No</span>
+                                    </label><br><br> 
+                            </div>
+                        </span>
+
+                    </div>
+                    <div id="buttons">
+                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
+                        <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
+                    </div>
+                </div>
+                <div id="vehicles">
+
+                    <h5 class="center-align" class="fs-title">Vehicles</h5>
+                    <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
+
+                    <input type="text" name="VIN" placeholder="(VIN) Vehicle Identification Number" required />
+                    <input type="text" name="year" placeholder="year" />
+                    <input type="text" name="brand" placeholder="brand" />
+                    <input type="text" name="model" placeholder="model" />
+
+                    <div id="buttons">
+                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
+                        <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
+                    </div>
 
 
+                </div>
+                <div id="coverages">
+                    <h5 class="center-align">Coverage</h5>
+                    <h6 class="center-align">How much coverage do you want?</h6>
+
+                    <span id="selects">Desired coverage:
+                        <br>
+                        <select name="coverage" id="selects_field">
+                            <option value="liability">Liability Only</option>
+                            <option value="full_coverage">Comprihensive/Collision(Full Coverage)</option>
+                        </select>
+                    </span>
+                    <div class="optional" id="full_cover">
+                        <span id="selects">Desired Deductible:
+                            <br>
+                            <select name="deductible" id="selects_field">
+                                <option value="500">$500.00</option>
+                                <option value="1000">$1,000.00</option>
+                            </select>
+                        </span>
+
+                        <div style="text-align:left">
+                            <br>
+                            <h5 class="center-align">Additional coverage:</h5>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="PIP" value="PIP">
+                                <span>Personal Injury Protection (PIP)</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="UM" value="UM">
+                                <span>Uninsured Motorist</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="RENTAL" value="Rental">
+                                <span>Rental</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="Towing" value="Towing">
+                                <span>Towing</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="buttons">
+                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
+                        <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
+                    </div>
+                </div>
+
+                <div id="lienholder">
+                    <h5 class="center-align" class="fs-title">Lein Holder (optional)</h5>
+                    <h6 class="center-align" class="fs-subtitle">Who are you financing your vehilce with?</h6>
+
+                    <input class="c1" type="text" name="lein_holder_name" placeholder="Lein Holder Name" />
+                    <input class="c2" type="text" name="lein_holder_address" placeholder="Lein Holder Address" />
+                    <input class="c1" type="tel" name="lein_holder_phone" placeholder="Lein Holder Phone" />
+                    <input class="c2" type="tel" name="lein_holder_fax" placeholder="Lein Holder Fax" />
+                    <div id="buttons">
+                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 
-</body>
-</html>
+{% endblock %}

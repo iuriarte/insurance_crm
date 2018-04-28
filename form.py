@@ -1,3 +1,4 @@
+#Clone hjs-crm
 import tornado.ioloop
 import tornado.web
 import tornado.log
@@ -21,7 +22,7 @@ class MainHandler(TemplateHandler):
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    self.render_template("index.html", {})
+    self.render_template("form.html", {})
 
 class PageHandler(TemplateHandler):
   def get(self, page):
@@ -45,6 +46,6 @@ if __name__ == "__main__":
   tornado.log.enable_pretty_logging()
 
   app = make_app()
-  PORT=int(os.environ.get('PORT', '8888'))
+  PORT=int(os.environ.get('PORT', '8080'))
   app.listen(PORT)
   tornado.ioloop.IOLoop.current().start()
