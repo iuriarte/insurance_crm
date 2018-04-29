@@ -1,4 +1,8 @@
 let drivers = 1;
+// M.AutoInit();
+// var instance = M.Tabs.init('.tabs', );
+
+
 
 $(document).ready(function () {
   $('.datepicker').datepicker({
@@ -6,6 +10,7 @@ $(document).ready(function () {
   });
   $('select').formSelect();
   $('.tabs').tabs({});
+ 
   $('.tooltipped').tooltip();
   $('.sidenav').sidenav();
 
@@ -40,13 +45,21 @@ $(document).ready(function () {
     }
   });
 
-  $('#add_btn').click(function(){
+
+  $('#add_btn').on('click', function() {
     drivers+=1
-    $(`<li class="tab"><a href="#drvier${drivers}"> drvier ${drivers}</a> </li>`).insertBefore(`#add_li`)
+    $(`<li class="tab"><a href="#driver${drivers}"> driver ${drivers}</a> </li>`).insertBefore(`#add_li`)
     $(`<div id="driver${drivers}" style='display:none;' >hello</div>`).insertBefore('#add_div')
+});
+
+
+  // $('#add_btn').click(function(){
+  //   drivers+=1
+  //   $(`<li class="tab"><a href="#drvier${drivers}"> drvier ${drivers}</a> </li>`).insertBefore(`#add_li`)
+  //   $(`<div id="driver${drivers}" style='display:none;' >hello</div>`).insertBefore('#add_div')
     
 
-  })
+  // })
 
 
 
