@@ -33,6 +33,13 @@ class PageHandler(TemplateHandler):
       'no-store, no-cache, must-revalidate, max-age=0')
     self.render_template(page,{})
 
+#handler for web form post into db
+class MyHandler(tornado.web.RequestHandler):
+  def post(self):
+    name  = self.get_argument("Name", "")
+    index = self.get_argument("Index","")
+#  .... code for updating DB
+
 def make_app():
   return tornado.web.Application([
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
