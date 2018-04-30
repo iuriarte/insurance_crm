@@ -1,58 +1,4 @@
-let drivers = 1;
-// M.AutoInit();
-// var instance = M.Tabs.init('.tabs', );
-function materialize(){
-  $(".datepicker").datepicker({
-    yearRange: 90
-  });
-  $("select").formSelect();
-  $(".tabs").tabs({});
-
-  $(".tooltipped").tooltip();
-  $(".sidenav").sidenav();
-
-  $("input[type=radio][name=currently_insured]").click(function() {
-    if ($("input[type=radio][name=currently_insured]:checked").val() === "No") {
-      jQuery("#pop").hide();
-    } else {
-      jQuery("#pop").show();
-    }
-  });
-
-  $("select[name=coverage]").change(function() {
-    if ($("select[name=coverage][id=selects_field]").val() == "liability") {
-      jQuery("#full_cover").hide();
-    } else {
-      jQuery("#full_cover").show();
-    }
-  });
-
-  $("input[type=radio][name=tickets_accidents]").click(function() {
-    if ($("input[type=radio][name=tickets_accidents]:checked").val() == "No") {
-      jQuery("#accidents").hide();
-    } else {
-      jQuery("#accidents").show();
-    }
-  });
-
-
-
-
-}
-
-$(window).on("load", function() {
-
-  materialize();
-
-
-  $("#add_btn").on("click", function() {
-    
-    drivers += 1;
-    $(
-      `<li class="tab"><a href="#driver${drivers}"> driver ${drivers}</a> </li>`
-    ).insertBefore("#add_li");
-    $(`<div id="driver${drivers}" style='display:none;'>
-    <!-- driver ${drivers} Tabs-->
+<!-- second Tabs-->
 <h5 class="center-align">Driver ${drivers} information</h5>
 <!-- <h6 class="center-align">Additional driver info</h6> -->
 <div class="row">
@@ -155,31 +101,8 @@ $(window).on("load", function() {
     </div>
 
 </div>
-    
-    </div>`).insertBefore("#add_div");
-
-    materialize();
-  });
-
-  // $('#add_btn').click(function(){
-  //   drivers+=1
-  //   $(`<li class="tab"><a href="#drvier${drivers}"> drvier ${drivers}</a> </li>`).insertBefore(`#add_li`)
-  //   $(`<div id="driver${drivers}" style='display:none;' >hello</div>`).insertBefore('#add_div')
-
-  // })
-});
 
 
 
-var driver = [
-  "first_name",
-  "last_name",
-  "cell_phone",
-  "email",
-  "gender",
-  "marital_status",
-  "birthdate",
-  "relation",
-  "form_id",
-  "id_no"
-];
+
+

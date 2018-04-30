@@ -12,9 +12,9 @@
                     <li class="tab">
                         <a href="#discounts">Discounts</a>
                     </li>
-                    <li class="tab">
+                    <!-- <li class="tab">
                         <a href="#points">Points</a>
-                    </li>
+                    </li> -->
                     <li class="tab">
                         <a href="#vehicles">Vehicles</a>
                     </li>
@@ -36,8 +36,8 @@
                     <div class="card">
                         <div class="card-tabs">
                             <ul class="tabs" id="driver_tabs">
-                                <li class="tab" id="driver1_tab">
-                                    <a class="active"  href="#primary">Primary</a>
+                                <li class="tab">
+                                    <a class="active" href="#primary">Primary</a>
                                 </li>
                                 <!-- <li class='tab'>
                                     <a href="#driver2">Driver2</a>
@@ -51,8 +51,11 @@
                             </ul>
                         </div>
                         <div class="card-content grey lighten-4">
+
                             <div id="primary">
+
                                 <!-- second Tabs-->
+
                                 <h5 class="center-align">Primary Driver information</h5>
                                 <!-- <h6 class="center-align">This is step 1</h6> -->
                                 <div class="row">
@@ -63,7 +66,7 @@
 
                                     <div class="input field col s6  m3">
                                         <input id="last_name" type="text" class="validate">
-                                        <label for="first_name">Last Name</label>
+                                        <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -123,7 +126,7 @@
                                     </div>
 
                                     <div class=" input-field col s6 m3">
-                                        <select>
+                                        <select id="relation">
                                             <option class="flow-text" value="self" selected>Self</option>
                                             <option value="spouse">Spouse/common law</option>
                                             <option value="sibiling">Sibiling</option>
@@ -137,7 +140,7 @@
 
                                 <div class="row">
                                     <div class=" input-field col s6 offset-m3 m3">
-                                        <select>
+                                        <select id="id_type">
                                             <option value="Tx DL" selected>Texas Drivers License</option>
                                             <option value="Tx ID">Texas ID</option>
                                             <option value="Out of state">Out of state</option>
@@ -179,9 +182,68 @@
                                         <label for="zip">Zip Code</label>
                                     </div>
                                 </div>
+
+                                <!--Added points to driver tab -->
+                                <!-- <div id="points"> -->
+                                    <h5 class="center-align">Accidents or Tickets?</h5>
+                                    <h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
+                                    <br>
+                                    <br> Any accidents or tickets in the past 5 years: &nbsp;&nbsp;&nbsp;
+
+                                    <label>
+                                        <input class="with-gap" name="tickets_accidents" type="radio" value="Yes" />
+                                        <span>Yes</span>
+                                    </label>
+
+                                    <label>
+                                        <input class="with-gap" name="tickets_accidents" type="radio" value="No" checked/>
+                                        <span>No</span>
+                                    </label>
+
+                                    <div class="optional" id="accidents">
+                                        <span class="level">
+                                            <div class="wrapper">
+                                                <span class="tooltip"></span>
+                                                <br>
+                                                <span class="c1">How many tickets have you had in the past 3 years?</span>
+                                                <span class="c2">
+                                                    <input type="number" min="0" max="4" value="0" name="ticekts">
+                                                </span>
+
+                                            </div>
+                                        </span>
+
+                                        <span class="level">
+                                            <div class="wrapper">
+                                                <span class="tooltip"></span>
+                                                <br>
+                                                <span class="c1">How many accidents have you had in the past 3 years?</span>
+                                                <span class="c2">
+                                                    <input type="number" min="0" max="4" value="0" name="accidents">
+                                                </span>
+                                                <br>
+                                                <br> were any of these accidents at fault?
+                                                <label>
+                                                    <input class="with-gap" name="at_fault" type="radio" value="Yes" />
+                                                    <span>Yes</span>
+                                                </label>
+
+                                                <label>
+                                                    <input class="with-gap" name="at_fault" type="radio" value="No" checked/>
+                                                    <span>No</span>
+                                                </label>
+                                                <br>
+                                                <br>
+                                            </div>
+                                        </span>
+
+                                    </div>
+
+                                <!-- </div> -->
+
                                 <!-- Tabs adders -->
                             </div>
-                            
+
                             <!-- <div id='driver2'> Hello</div> -->
 
                             <div id='add_div'></div>
@@ -259,7 +321,7 @@
                         <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
                     </div>
                 </div>
-                <div id="points">
+                <!-- <div id="points">
                     <h5 class="center-align">Accidents or Tickets?</h5>
                     <h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
                     <br>
@@ -317,7 +379,7 @@
                         <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
                         <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
                     </div>
-                </div>
+                </div> -->
                 <div id="vehicles">
 
                     <h5 class="center-align" class="fs-title">Vehicles</h5>
