@@ -10,20 +10,14 @@
                         <a class="active" href="#drivers">Drivers</a>
                     </li>
                     <li class="tab">
-                        <a href="#discounts">Discounts</a>
-                    </li>
-                    <!-- <li class="tab">
-                        <a href="#points">Points</a>
-                    </li> -->
-                    <li class="tab">
                         <a href="#vehicles">Vehicles</a>
                     </li>
                     <li class="tab">
-                        <a href="#coverages">Coverages</a>
+                        <a href="#discounts">Discounts</a>
                     </li>
-                    <li class="tab">
+                    <!-- <li class="tab">
                         <a href="#lienholder">Lien Holder</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <!-- <div class="card-content">
@@ -114,8 +108,15 @@
 
                                     </div>
 
+
                                 </div>
                                 <div class="divider"></div>
+                                <div class="row">
+                                    <div class="input field col s12 offset-m3 m6">
+                                        <input id="occupation" type="text">
+                                        <label for="occupation">Occupation</label>
+                                    </div>
+                                </div>
                                 <div class="row">
 
                                     <div class="col s6 offset-m3 m3">
@@ -166,14 +167,14 @@
                                     </div>
 
                                     <div class="input field col s6 m3">
-                                        <input id="city" type="text" class="validate">
+                                        <input id="city" type="text" placeholder="Houston" class="validate">
                                         <label for="city">City</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="input field col s6 offset-m3 m3">
-                                        <input id="state" type="text" class="autocomplete">
+                                        <input id="state" type="text" placeholder="Texas" class="autocomplete">
                                         <label for="state">State</label>
                                     </div>
 
@@ -185,59 +186,59 @@
 
                                 <!--Added points to driver tab -->
                                 <!-- <div id="points"> -->
-                                    <h5 class="center-align">Accidents or Tickets?</h5>
-                                    <h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
-                                    <br>
-                                    <br> Any accidents or tickets in the past 5 years: &nbsp;&nbsp;&nbsp;
+                                <h5 class="center-align">Accidents or Tickets?</h5>
+                                <h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
+                                <br>
+                                <br> Any accidents or tickets in the past 5 years: &nbsp;&nbsp;&nbsp;
 
-                                    <label>
-                                        <input class="with-gap" name="tickets_accidents" type="radio" value="Yes" />
-                                        <span>Yes</span>
-                                    </label>
+                                <label>
+                                    <input class="with-gap" name="tickets_accidents" type="radio" value="Yes" />
+                                    <span>Yes</span>
+                                </label>
 
-                                    <label>
-                                        <input class="with-gap" name="tickets_accidents" type="radio" value="No" checked/>
-                                        <span>No</span>
-                                    </label>
+                                <label>
+                                    <input class="with-gap" name="tickets_accidents" type="radio" value="No" checked/>
+                                    <span>No</span>
+                                </label>
 
-                                    <div class="optional" id="accidents">
-                                        <span class="level">
-                                            <div class="wrapper">
-                                                <span class="tooltip"></span>
-                                                <br>
-                                                <span class="c1">How many tickets have you had in the past 3 years?</span>
-                                                <span class="c2">
-                                                    <input type="number" min="0" max="4" value="0" name="ticekts">
-                                                </span>
+                                <div class="optional" id="accidents">
+                                    <span class="level">
+                                        <div class="wrapper">
+                                            <span class="tooltip"></span>
+                                            <br>
+                                            <span class="c1">How many tickets have you had in the past 3 years?</span>
+                                            <span class="c2">
+                                                <input type="number" min="0" max="4" value="0" name="ticekts">
+                                            </span>
 
-                                            </div>
-                                        </span>
+                                        </div>
+                                    </span>
 
-                                        <span class="level">
-                                            <div class="wrapper">
-                                                <span class="tooltip"></span>
-                                                <br>
-                                                <span class="c1">How many accidents have you had in the past 3 years?</span>
-                                                <span class="c2">
-                                                    <input type="number" min="0" max="4" value="0" name="accidents">
-                                                </span>
-                                                <br>
-                                                <br> were any of these accidents at fault?
-                                                <label>
-                                                    <input class="with-gap" name="at_fault" type="radio" value="Yes" />
-                                                    <span>Yes</span>
-                                                </label>
+                                    <span class="level">
+                                        <div class="wrapper">
+                                            <span class="tooltip"></span>
+                                            <br>
+                                            <span class="c1">How many accidents have you had in the past 3 years?</span>
+                                            <span class="c2">
+                                                <input type="number" min="0" max="4" value="0" name="accidents">
+                                            </span>
+                                            <br>
+                                            <br> were any of these accidents at fault?
+                                            <label>
+                                                <input class="with-gap" name="at_fault" type="radio" value="Yes" />
+                                                <span>Yes</span>
+                                            </label>
 
-                                                <label>
-                                                    <input class="with-gap" name="at_fault" type="radio" value="No" checked/>
-                                                    <span>No</span>
-                                                </label>
-                                                <br>
-                                                <br>
-                                            </div>
-                                        </span>
+                                            <label>
+                                                <input class="with-gap" name="at_fault" type="radio" value="No" checked/>
+                                                <span>No</span>
+                                            </label>
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </span>
 
-                                    </div>
+                                </div>
 
                                 <!-- </div> -->
 
@@ -251,77 +252,171 @@
 
                         </div>
 
-                        <!-- <div class="col offset-m3 m3" id="buttons">
-                            <a class="btn-floating btn-large waves-effect waves-light red">
-                                <i class="material-icons">add</i>
-                            </a>
-                            <a name="next" class="next waves-effect waves-light btn " value="Next" />Next</a>
-                        </div> -->
-
-
                     </div>
 
                 </div>
-                <div id="discounts">
-                    <h5 class="center-align">Discounts</h5>
-                    <h6 class="center-align">Lets see what discounts you qualify for</h6>
-                    <div>Are you a Home Owner: &nbsp;&nbsp;&nbsp;
 
-                        <label>
-                            <input class="with-gap" name="homeowner" type="radio" value="owns" />
-                            <span>Yes</span>
-                        </label>
 
-                        <label>
-                            <input class="with-gap" name="homeowner" type="radio" value="rents" checked/>
-                            <span>No</span>
-                        </label>
-                    </div>
-                    <div>
-                        <span class="tooltipped" data-position="top" data-tooltip="6 and 12 months qualify you for a discount. You will need to provide proof of prior insurance,
+                <div class="card-content grey lighten-4">
+                    <div id="vehicles">
+
+                        <div class="card">
+
+                            <div class="card-tabs">
+                                <ul class="tabs" id="cars_tabs">
+                                    <li class="tab">
+                                        <a class="active" href="#vehicle1">Vehicle 1</a>
+                                    </li>
+                                    <li class="tab" id="add_car_li">
+                                        <a href="#add_car_lnk" id="add_car_btn">
+                                            <i class="material-icons prefix">directions_car</i>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <div class="card-content grey lighten-4">
+                                <div id="vehicle1">
+                                    <h5 class="center-align" class="fs-title">Vehicle 1</h5>
+                                    <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
+                                    <div class="row">
+                                        <div class="input field col s3 offset-m3 m3">
+                                            <input type="text" id="VIN" name="VIN" placeholder="(VIN) Vehicle Identification Number" required />
+                                            <label for="VIN">(VIN) Vehicle Identification Number</label>
+                                        </div>
+                                        <div class="input field col s3 ">
+                                            <input type="text" name="year" placeholder="year" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input field col s3 offset-m3 m3">
+                                            <input type="text" name="brand" placeholder="brand" />
+                                        </div>
+                                        <div class="input field col s3 ">
+                                            <input type="text" name="model" placeholder="model" />
+                                        </div>
+                                    </div>
+
+
+                                    <div id="coverages">
+                                        <h5 class="center-align">Coverage</h5>
+                                        <h6 class="center-align">How much coverage do you want?</h6>
+                                        <div class="row">
+                                            <span id="selects">Desired coverage:
+                                                <br>
+                                                <select name="coverage" id="selects_field">
+                                                    <option value="liability">Liability Only</option>
+                                                    <option value="full_coverage">Comprihensive/Collision(Full Coverage)</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                        <div class="optional" id="full_cover">
+                                            <span id="selects">Desired Deductible:
+                                                <br>
+                                                <select name="deductible" id="selects_field">
+                                                    <option value="500">$500.00</option>
+                                                    <option value="1000">$1,000.00</option>
+                                                </select>
+                                            </span>
+
+                                            <div style="text-align:left">
+                                                <br>
+                                                <h5 class="center-align">Additional coverage:</h5>
+                                                <br>
+                                                <label>
+                                                    <input type="checkbox" name="PIP" value="PIP">
+                                                    <span>Personal Injury Protection (PIP)</span>
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input type="checkbox" name="UM" value="UM">
+                                                    <span>Uninsured Motorist</span>
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input type="checkbox" name="RENTAL" value="Rental">
+                                                    <span>Rental</span>
+                                                </label>
+                                                <br>
+                                                <label>
+                                                    <input type="checkbox" name="Towing" value="Towing">
+                                                    <span>Towing</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- Add additional cars here -->
+                                    
+                                </div>
+                                <div id='add_car'></div>
+                            </div>
+
+                        </div></div></div>
+
+
+
+                        <div id="discounts">
+                            <h5 class="center-align">Discounts</h5>
+                            <h6 class="center-align">Lets see what discounts you qualify for</h6>
+                            <div>Are you a Home Owner: &nbsp;&nbsp;&nbsp;
+
+                                <label>
+                                    <input class="with-gap" name="homeowner" type="radio" value="owns" />
+                                    <span>Yes</span>
+                                </label>
+
+                                <label>
+                                    <input class="with-gap" name="homeowner" type="radio" value="rents" checked/>
+                                    <span>No</span>
+                                </label>
+                            </div>
+                            <div>
+                                <span class="tooltipped" data-position="top" data-tooltip="6 and 12 months qualify you for a discount. You will need to provide proof of prior insurance,
                     such as 'Insurance ID cards' in order to have the discount applied.">Are you currently Insured (personal auto):</span> &nbsp;
 
-                        <label>
-                            <input class="with-gap" name=currently_insured type="radio" value="Yes" />
-                            <span>Yes</span>
-                        </label>
+                                <label>
+                                    <input class="with-gap" name=currently_insured type="radio" value="Yes" />
+                                    <span>Yes</span>
+                                </label>
 
 
-                        <label>
-                            <input class="with-gap" name=currently_insured type="radio" value="No" checked />
-                            <span>No</span>
-                        </label>
-                    </div>
-                    <div class="optional" id="pop">
-                        <span class="level">
-                            <div class="wrapper">
-                                <br>
-                                <br>
-                                <span class="tooltip"></span>
-                                <span class="c1">How long have you had auto insurance (without a lapse in coverage)
+                                <label>
+                                    <input class="with-gap" name=currently_insured type="radio" value="No" checked />
+                                    <span>No</span>
+                                </label>
+                            </div>
+                            <div class="optional" id="pop">
+                                <span class="level">
+                                    <div class="wrapper">
+                                        <br>
+                                        <br>
+                                        <span class="tooltip"></span>
+                                        <span class="c1">How long have you had auto insurance (without a lapse in coverage)
+                                        </span>
+                                        <span class="c2">
+                                            <select name="length" id="selects_field">
+                                                <option value="less_than_6">Less than 6 months</option>
+                                                <option value="6_months">6 to 11 months</option>
+                                                <option value="12_months">12 months or longer</option>
+                                            </select>
+                                        </span>
+
+                                    </div>
                                 </span>
-                                <span class="c2">
-                                    <select name="length" id="selects_field">
-                                        <option value="less_than_6">Less than 6 months</option>
-                                        <option value="6_months">6 to 11 months</option>
-                                        <option value="12_months">12 months or longer</option>
-                                    </select>
-                                </span>
+
+                                <input type="text" name="carrier" placeholder="with who? (Geico, progressive, etc...)" />
 
                             </div>
-                        </span>
 
-                        <input type="text" name="carrier" placeholder="with who? (Geico, progressive, etc...)" />
+                            <div id="buttons">
 
-                    </div>
-
-                    <div id="buttons">
-
-                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
-                        <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
-                    </div>
-                </div>
-                <!-- <div id="points">
+                                <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
+                                <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
+                            </div>
+                        </div>
+                        <!-- <div id="points">
                     <h5 class="center-align">Accidents or Tickets?</h5>
                     <h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
                     <br>
@@ -380,76 +475,10 @@
                         <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
                     </div>
                 </div> -->
-                <div id="vehicles">
-
-                    <h5 class="center-align" class="fs-title">Vehicles</h5>
-                    <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
-
-                    <input type="text" name="VIN" placeholder="(VIN) Vehicle Identification Number" required />
-                    <input type="text" name="year" placeholder="year" />
-                    <input type="text" name="brand" placeholder="brand" />
-                    <input type="text" name="model" placeholder="model" />
-
-                    <div id="buttons">
-                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
-                        <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
-                    </div>
 
 
-                </div>
-                <div id="coverages">
-                    <h5 class="center-align">Coverage</h5>
-                    <h6 class="center-align">How much coverage do you want?</h6>
 
-                    <span id="selects">Desired coverage:
-                        <br>
-                        <select name="coverage" id="selects_field">
-                            <option value="liability">Liability Only</option>
-                            <option value="full_coverage">Comprihensive/Collision(Full Coverage)</option>
-                        </select>
-                    </span>
-                    <div class="optional" id="full_cover">
-                        <span id="selects">Desired Deductible:
-                            <br>
-                            <select name="deductible" id="selects_field">
-                                <option value="500">$500.00</option>
-                                <option value="1000">$1,000.00</option>
-                            </select>
-                        </span>
-
-                        <div style="text-align:left">
-                            <br>
-                            <h5 class="center-align">Additional coverage:</h5>
-                            <br>
-                            <label>
-                                <input type="checkbox" name="PIP" value="PIP">
-                                <span>Personal Injury Protection (PIP)</span>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="checkbox" name="UM" value="UM">
-                                <span>Uninsured Motorist</span>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="checkbox" name="RENTAL" value="Rental">
-                                <span>Rental</span>
-                            </label>
-                            <br>
-                            <label>
-                                <input type="checkbox" name="Towing" value="Towing">
-                                <span>Towing</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div id="buttons">
-                        <a name="previous" class="previous waves-effect waves-light btn" value="Previous" />Previous</a>
-                        <a name="next" class="next waves-effect waves-light btn" value="Next" />Next</a>
-                    </div>
-                </div>
-
-                <div id="lienholder">
+                        <!-- <div id="lienholder">
                     <h5 class="center-align" class="fs-title">Lein Holder (optional)</h5>
                     <h6 class="center-align" class="fs-subtitle">Who are you financing your vehilce with?</h6>
 
@@ -463,11 +492,11 @@
 
                         </button>
                     </div>
+                </div> -->
+                    </div>
                 </div>
-            </div>
-        </div>
     </form>
-</div>
+    </div>
 
 
-{% endblock %}
+    {% endblock %}

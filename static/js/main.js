@@ -1,57 +1,58 @@
 let drivers = 1;
+let cars = 1;
 // M.AutoInit();
 // var instance = M.Tabs.init('.tabs', );
-function materialize(){
-  $(".datepicker").datepicker({
-    yearRange: 90
-  });
-  $("select").formSelect();
-  $(".tabs").tabs({});
+function materialize() {
+    $(".datepicker").datepicker({
+        yearRange: 90
+    });
+    $("select").formSelect();
+    $(".tabs").tabs({});
 
-  $(".tooltipped").tooltip();
-  $(".sidenav").sidenav();
+    $(".tooltipped").tooltip();
+    $(".sidenav").sidenav();
 
-  $("input[type=radio][name=currently_insured]").click(function() {
-    if ($("input[type=radio][name=currently_insured]:checked").val() === "No") {
-      jQuery("#pop").hide();
-    } else {
-      jQuery("#pop").show();
-    }
-  });
+    $("input[type=radio][name=currently_insured]").click(function () {
+        if ($("input[type=radio][name=currently_insured]:checked").val() === "No") {
+            jQuery("#pop").hide();
+        } else {
+            jQuery("#pop").show();
+        }
+    });
 
-  $("select[name=coverage]").change(function() {
-    if ($("select[name=coverage][id=selects_field]").val() == "liability") {
-      jQuery("#full_cover").hide();
-    } else {
-      jQuery("#full_cover").show();
-    }
-  });
+    $("select[name=coverage]").change(function () {
+        if ($("select[name=coverage][id=selects_field]").val() == "liability") {
+            jQuery("#full_cover").hide();
+        } else {
+            jQuery("#full_cover").show();
+        }
+    });
 
-  $("input[type=radio][name=tickets_accidents]").click(function() {
-    if ($("input[type=radio][name=tickets_accidents]:checked").val() == "No") {
-      jQuery("#accidents").hide();
-    } else {
-      jQuery("#accidents").show();
-    }
-  });
+    $("input[type=radio][name=tickets_accidents]").click(function () {
+        if ($("input[type=radio][name=tickets_accidents]:checked").val() == "No") {
+            jQuery("#accidents").hide();
+        } else {
+            jQuery("#accidents").show();
+        }
+    });
 
 
 
 
 }
 
-$(window).on("load", function() {
+$(window).on("load", function () {
 
-  materialize();
+    materialize();
 
 
-  $("#add_btn").on("click", function() {
-    
-    drivers += 1;
-    $(
-      `<li class="tab"><a href="#driver${drivers}"> driver ${drivers}</a> </li>`
-    ).insertBefore("#add_li");
-    $(`<div id="driver${drivers}" style='display:none;'>
+    $("#add_btn").on("click", function () {
+
+        drivers += 1;
+        $(
+            `<li class="tab"><a href="#driver${drivers}"> driver ${drivers}</a> </li>`
+        ).insertBefore("#add_li");
+        $(`<div id="driver${drivers}" style='display:none;'>
     <!-- driver ${drivers} Tabs-->
 <h5 class="center-align">Driver ${drivers} information</h5>
 <!-- <h6 class="center-align">Additional driver info</h6> -->
@@ -67,17 +68,11 @@ $(window).on("load", function() {
     </div>
 </div>
 <div class="row">
-    <div class="input field col s6 offset-m3 m3">
-        <input id="cell_phone${drivers}" type="text" class="validate">
-        <label for="cel_phone${drivers}">cell phone</label>
-    </div>
+    <div class="input field col s12 offset-m3 m6">
+        <input id="occupation${drivers}" type="text">
+        <label for="occupation${drivers}">Occupation</label>
+    </div></div>
 
-    <div class="input field col s6 m3">
-        <input id="email${drivers}" type="text" class="validate">
-        <label for="email${drivers}">Email</label>
-    </div>
-
-</div>
 <div class="divider"></div>
 <div class="row">
     <div class="col s6 offset-m3 m3">
@@ -155,31 +150,192 @@ $(window).on("load", function() {
     </div>
 
 </div>
+
+<h5 class="center-align">Accidents or Tickets?</h5>
+<h6 class="center-align">Please be honest. Your record will be verified. You may get a disclousre discount</h6>
+<br>
+<br> Any accidents or tickets in the past 5 years: &nbsp;&nbsp;&nbsp;
+
+<label>
+    <input class="with-gap" name="tickets_accidents${drivers}" type="radio" value="Yes" />
+    <span>Yes</span>
+</label>
+
+<label>
+    <input class="with-gap" name="tickets_accidents${drivers}" type="radio" value="No" checked/>
+    <span>No</span>
+</label>
+
+<div class="optional" id="accidents${drivers}">
+    <span class="level">
+        <div class="wrapper">
+            <span class="tooltip"></span>
+            <br>
+            <span class="c1">How many tickets have you had in the past 3 years?</span>
+            <span class="c2">
+                <input type="number" min="0" max="4" value="0" name="ticekts${drivers}">
+            </span>
+
+        </div>
+    </span>
+
+    <span class="level">
+        <div class="wrapper">
+            <span class="tooltip"></span>
+            <br>
+            <span class="c1">How many accidents have you had in the past 3 years?</span>
+            <span class="c2">
+                <input type="number" min="0" max="4" value="0" name="accidents${drivers}">
+            </span>
+            <br>
+            <br> were any of these accidents at fault?
+            <label>
+                <input class="with-gap" name="at_fault${drivers}" type="radio" value="Yes" />
+                <span>Yes</span>
+            </label>
+
+            <label>
+                <input class="with-gap" name="at_fault${drivers}" type="radio" value="No" checked/>
+                <span>No</span>
+            </label>
+            <br>
+            <br>
+        </div>
+    </span>
+
+</div>
     
     </div>`).insertBefore("#add_div");
 
-    materialize();
-  });
 
-  // $('#add_btn').click(function(){
-  //   drivers+=1
-  //   $(`<li class="tab"><a href="#drvier${drivers}"> drvier ${drivers}</a> </li>`).insertBefore(`#add_li`)
-  //   $(`<div id="driver${drivers}" style='display:none;' >hello</div>`).insertBefore('#add_div')
+    $(`input[type=radio][name=tickets_accidents${drivers}]`).click(function () {
+        if ($(`input[type=radio][name=tickets_accidents${drivers}]:checked`).val() == "No") {
+            jQuery(`#accidents${drivers}`).hide();
+        } else {
+            jQuery(`#accidents${drivers}`).show();
+        }
+    });
 
-  // })
+
+        materialize();
+    });
+
+    $("#add_car_btn").on("click", function () {
+
+        cars += 1;
+        $(
+            `<li class="tab"><a href="#car${cars}"> car ${cars}</a> </li>`
+        ).insertBefore("#add_car_li");
+        $(`<div id="car${cars}" style='display:none;'>
+    <!-- driver ${cars} Tabs-->
+      <div id="vehicle${cars}">
+                <h5 class="center-align" class="fs-title">Vehicle ${cars}</h5>
+                <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
+                <div class="row">
+                    <div class="input field col s3 offset-m3 m3">
+                        <input type="text" id="VIN${cars}" name="VIN" placeholder="(VIN) Vehicle Identification Number" required />
+                        <label for="VIN${cars}">(VIN) Vehicle Identification Number</label>
+                    </div>
+                    <div class="input field col s3 ">
+                        <input type="text" name="year${cars}" placeholder="year" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input field col s3 offset-m3 m3">
+                        <input type="text" name="brand${cars}" placeholder="brand" />
+                    </div>
+                    <div class="input field col s3 ">
+                        <input type="text" name="model${cars}" placeholder="model" />
+                    </div>
+                </div>
+
+
+                <div id="coverages${cars}">
+                    <h5 class="center-align">Coverage</h5>
+                    <h6 class="center-align">How much coverage do you want?</h6>
+                    <div class="row">
+                        <span id="selects">Desired coverage:
+                            <br>
+                            <select name="coverage${cars}" id="selects_field">
+                                <option value="liability">Liability Only</option>
+                                <option value="full_coverage">Comprihensive/Collision(Full Coverage)</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="optional" id="full_cover${cars}">
+                        <span id="selects">Desired Deductible:
+                            <br>
+                            <select name="deductible${cars}" id="selects_field">
+                                <option value="500">$500.00</option>
+                                <option value="1000">$1,000.00</option>
+                            </select>
+                        </span>
+
+                        <div style="text-align:left">
+                            <br>
+                            <h5 class="center-align">Additional coverage:</h5>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="PIP${cars}" value="PIP">
+                                <span>Personal Injury Protection (PIP)</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="UM${cars}" value="UM">
+                                <span>Uninsured Motorist</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="RENTAL${cars}" value="Rental">
+                                <span>Rental</span>
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="Towing${cars}" value="Towing">
+                                <span>Towing</span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>`).insertBefore("#add_car");
+
+    $(`select[name=coverage${cars}]`).change(function () {
+        if ($(`select[name=coverage${cars}][id=selects_field]`).val() == "liability") {
+            jQuery(`#full_cover${cars}`).hide();
+        } else {
+            jQuery(`#full_cover${cars}`).show();
+        }
+    });
+
+        materialize();
+    });
+
+
+
+    // $('#add_btn').click(function(){
+    //   drivers+=1
+    //   $(`<li class="tab"><a href="#drvier${drivers}"> drvier ${drivers}</a> </li>`).insertBefore(`#add_li`)
+    //   $(`<div id="driver${drivers}" style='display:none;' >hello</div>`).insertBefore('#add_div')
+
+    // })
 });
 
 
 
 var driver = [
-  "first_name",
-  "last_name",
-  "cell_phone",
-  "email",
-  "gender",
-  "marital_status",
-  "birthdate",
-  "relation",
-  "form_id",
-  "id_no"
+    "first_name",
+    "last_name",
+    "cell_phone",
+    "email",
+    "gender",
+    "marital_status",
+    "birthdate",
+    "relation",
+    "form_id",
+    "id_no"
 ];
