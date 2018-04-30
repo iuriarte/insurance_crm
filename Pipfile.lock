@@ -1,6 +1,21 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< HEAD
+            "sha256": "3360f0b59956bec8892470095570587d97653043a946d7dc2f73ebe56aa40e2f"
+        },
+        "host-environment-markers": {
+            "implementation_name": "cpython",
+            "implementation_version": "3.5.2",
+            "os_name": "posix",
+            "platform_machine": "x86_64",
+            "platform_python_implementation": "CPython",
+            "platform_release": "4.4.0-116-generic",
+            "platform_system": "Linux",
+            "platform_version": "#140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018",
+            "python_full_version": "3.5.2",
+            "python_version": "3.5",
+=======
             "sha256": "0835fc92e6077a70e8c7b2cd5e2710682c5c55629442854b8c05469329cd9d64"
         },
         "host-environment-markers": {
@@ -14,6 +29,7 @@
             "platform_version": "#44-Ubuntu SMP Thu Apr 5 14:25:01 UTC 2018",
             "python_full_version": "3.6.3",
             "python_version": "3.6",
+>>>>>>> 0f7ae3195067d6ff4ff167e17d1ac57cf65200c2
             "sys_platform": "linux"
         },
         "pipfile-spec": 6,
@@ -27,6 +43,8 @@
         ]
     },
     "default": {
+<<<<<<< HEAD
+=======
         "astroid": {
             "hashes": [
                 "sha256:38186e481b65877fd8b1f9acc33e922109e983eb7b6e487bd4c71002134ad331",
@@ -120,6 +138,7 @@
             ],
             "version": "==0.12.0"
         },
+>>>>>>> 0f7ae3195067d6ff4ff167e17d1ac57cf65200c2
         "jinja2": {
             "hashes": [
                 "sha256:74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd",
@@ -127,6 +146,8 @@
             ],
             "version": "==2.10"
         },
+<<<<<<< HEAD
+=======
         "jmespath": {
             "hashes": [
                 "sha256:f11b4461f425740a1d908e9a3f7365c3d2e569f6ca68a2ff8bc5bcd9676edd63",
@@ -174,12 +195,15 @@
             ],
             "version": "==2.3.5"
         },
+>>>>>>> 0f7ae3195067d6ff4ff167e17d1ac57cf65200c2
         "markupsafe": {
             "hashes": [
                 "sha256:a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665"
             ],
             "version": "==1.0"
         },
+<<<<<<< HEAD
+=======
         "mccabe": {
             "hashes": [
                 "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42",
@@ -312,6 +336,7 @@
             ],
             "version": "==1.11.0"
         },
+>>>>>>> 0f7ae3195067d6ff4ff167e17d1ac57cf65200c2
         "tornado": {
             "hashes": [
                 "sha256:88ce0282cce70df9045e515f578c78f1ebc35dcabe1d70f800c3583ebda7f5f5",
@@ -321,6 +346,11 @@
                 "sha256:1b83d5c10550f2653380b4c77331d6f8850f287c4f67d7ce1e1c639d9222fbc7"
             ],
             "version": "==5.0.2"
+<<<<<<< HEAD
+        }
+    },
+    "develop": {}
+=======
         },
         "traitlets": {
             "hashes": [
@@ -428,4 +458,5 @@
             "version": "==1.10.11"
         }
     }
+>>>>>>> 0f7ae3195067d6ff4ff167e17d1ac57cf65200c2
 }
