@@ -33,7 +33,12 @@ class PageHandler(TemplateHandler):
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    self.render_template(page, {})
+    
+    conn = psycopg2.connect("dbname=Kappa user=postgres")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM customerstemp")
+    data = cur.fetchall()
+    self.render_template(page, {'data':data})
 
 
 class LoginHandler(TemplateHandler):
@@ -48,7 +53,8 @@ class LoginHandler(TemplateHandler):
     cur = conn.cursor()
     cur.execute("SELECT username, password FROM users WHERE username = %s", [username])
     user = cur.fetchone()
-    hashed_pass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(8))
+    print(user[1].encode('utf-8'))
+    # hashed_pass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(8))
     if user and user[1] and bcrypt.checkpw(password.encode('utf-8'), user[1].encode('utf-8')):
       # self.set_current_user(username)
       self.render_template('loginsuccess.html', {})
@@ -99,13 +105,14 @@ def make_app():
     (r"/(login)", LoginHandler),
     (r"/loginsuccess", LoginHandler),
     (r"/(register)", RegisterHandler),
-    (r"/", MainHandler)
+    (r"/", MainHandler),
+    (r"/(tempsearch)", PageHandler)
   ], autoreload=True)
 
 if __name__ == "__main__":
   tornado.log.enable_pretty_logging()
 
   app = make_app()
-  PORT=int(os.environ.get('PORT', '8000'))
+  PORT=int(os.environ.get('PORT', '8888'))
   app.listen(PORT)
   tornado.ioloop.IOLoop.current().start()
