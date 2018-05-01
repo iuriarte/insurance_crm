@@ -4,6 +4,8 @@ import tornado.web
 import tornado.log
 import os
 
+import queries
+
 from jinja2 import \
   Environment, PackageLoader, select_autoescape
 
@@ -13,6 +15,9 @@ ENV = Environment(
 )
 
 class TemplateHandler(tornado.web.RequestHandler):
+  def initialize(self):
+    self.session = queries.Session(os.environ.get('DATABASE_URL', 'postgresql://postgres@localhost:5432/kappa'))
+    
   def render_template (self, tpl, context):
     template = ENV.get_template(tpl)
     self.write(template.render(**context))
@@ -39,6 +44,8 @@ class MyHandler(tornado.web.RequestHandler):
     name  = self.get_argument("Name", "")
     index = self.get_argument("Index","")
 #  .... code for updating DB
+    #for loop
+    self.session.query("INSERT INTO car VALUES (%(name)s, %(index)s);", {'name': name, 'index': index})
 
 def make_app():
   return tornado.web.Application([
