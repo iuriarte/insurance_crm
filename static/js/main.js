@@ -58,18 +58,18 @@ $(window).on("load", function () {
 <!-- <h6 class="center-align">Additional driver info</h6> -->
 <div class="row">
     <div class="input field col s6 offset-m3 m3">
-        <input id="first_name${drivers}" type="text" class="validate">
+        <input name="first_name${drivers}" id="first_name${drivers}" type="text" class="validate">
         <label for="first_name${drivers}">First Name</label>
     </div>
 
     <div class="input field col s6  m3">
-        <input id="last_name${drivers}" type="text" class="validate">
+        <input name="last_name${drivers}" id="last_name${drivers}" type="text" class="validate">
         <label for="last_name${drivers}">Last Name</label>
     </div>
 </div>
 <div class="row">
     <div class="input field col s12 offset-m3 m6">
-        <input id="occupation${drivers}" type="text">
+        <input name="occupation${drivers}" id="occupation${drivers}" type="text">
         <label for="occupation${drivers}">Occupation</label>
     </div></div>
 
@@ -112,13 +112,13 @@ $(window).on("load", function () {
 
     <div class="col s6 offset-m3 m3">
         <label for="birthdate${drivers}" class>birthdate</label>
-        <input id="birthdate${drivers}" type="text" class="datepicker">
+        <input name="birthdate${drivers}" id="birthdate${drivers}" type="text" class="datepicker">
 
 
     </div>
 
     <div class=" input-field col s6 m3">
-        <select id='relation${drivers}'>
+        <select name="relation${drivers}" id='relation${drivers}'>
             <option  value="self" >Self</option>
             <option class="flow-text" value="spouse" selected>Spouse/common law</option>
             <option value="sibiling">Sibiling</option>
@@ -132,7 +132,7 @@ $(window).on("load", function () {
 
 <div class="row">
     <div class=" input-field col s6 offset-m3 m3">
-        <select id="id_type${drivers}">
+        <select name="id_type${drivers}" id="id_type${drivers}">
             <option value="Tx DL" selected>Texas Drivers License</option>
             <option value="Tx ID">Texas ID</option>
             <option value="Out of state">Out of state</option>
@@ -145,7 +145,7 @@ $(window).on("load", function () {
     </div>
     <div class="input field col s6 m3">
         <label for="ID_No${drivers}">ID Number</label>
-        <input id="ID_No${drivers}" type="text" class="validate">
+        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate">
 
     </div>
 
@@ -233,7 +233,7 @@ $(window).on("load", function () {
                 <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
                 <div class="row">
                     <div class="input field col s3 offset-m3 m3">
-                        <input type="text" id="VIN${cars}" name="VIN" placeholder="(VIN) Vehicle Identification Number" required />
+                        <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number" required />
                         <label for="VIN${cars}">(VIN) Vehicle Identification Number</label>
                     </div>
                     <div class="input field col s3 ">

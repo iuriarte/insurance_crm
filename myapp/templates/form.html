@@ -54,23 +54,23 @@
                                 <!-- <h6 class="center-align">This is step 1</h6> -->
                                 <div class="row">
                                     <div class="input field col s6 offset-m3 m3">
-                                        <input id="first_name" type="text" class="validate">
+                                        <input name ="first_name" id="first_name" type="text" class="validate">
                                         <label for="first_name">First Name</label>
                                     </div>
 
                                     <div class="input field col s6  m3">
-                                        <input id="last_name" type="text" class="validate">
+                                        <input name="last_name" id="last_name" type="text" class="validate">
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input field col s6 offset-m3 m3">
-                                        <input id="cell_phone" type="text" class="validate">
+                                        <input name="cell_phone" id="cell_phone" type="text" class="validate">
                                         <label for="cel_phone">cell phone</label>
                                     </div>
 
                                     <div class="input field col s6 m3">
-                                        <input id="email" type="text" class="validate">
+                                        <input name="email" id="email" type="text" class="validate">
                                         <label for="email">Email</label>
                                     </div>
 
@@ -113,7 +113,7 @@
                                 <div class="divider"></div>
                                 <div class="row">
                                     <div class="input field col s12 offset-m3 m6">
-                                        <input id="occupation" type="text">
+                                        <input name="occupation" id="occupation" type="text">
                                         <label for="occupation">Occupation</label>
                                     </div>
                                 </div>
@@ -121,13 +121,13 @@
 
                                     <div class="col s6 offset-m3 m3">
                                         <label for="birthdate" class>birthdate</label>
-                                        <input id="birthdate" type="text" class="datepicker">
+                                        <input name="birthdate" id="birthdate" type="text" class="datepicker">
 
 
                                     </div>
 
                                     <div class=" input-field col s6 m3">
-                                        <select id="relation">
+                                        <select name="relation" id="relation">
                                             <option class="flow-text" value="self" selected>Self</option>
                                             <option value="spouse">Spouse/common law</option>
                                             <option value="sibiling">Sibiling</option>
@@ -141,7 +141,7 @@
 
                                 <div class="row">
                                     <div class=" input-field col s6 offset-m3 m3">
-                                        <select id="id_type">
+                                        <select name="id_type" id="id_type">
                                             <option value="Tx DL" selected>Texas Drivers License</option>
                                             <option value="Tx ID">Texas ID</option>
                                             <option value="Out of state">Out of state</option>
@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="input field col s6 m3">
                                         <label for="ID_No">ID Number</label>
-                                        <input id="ID_No" type="text" class="validate">
+                                        <input name="ID_No" id="ID_No" type="text" class="validate">
 
                                     </div>
 
@@ -162,24 +162,24 @@
 
                                 <div class="row">
                                     <div class="input field col s6 offset-m3 m3">
-                                        <input id="street" type="text" class="validate">
+                                        <input name="street" id="street" type="text" class="validate">
                                         <label for="street">Street Address</label>
                                     </div>
 
                                     <div class="input field col s6 m3">
-                                        <input id="city" type="text" placeholder="Houston" class="validate">
+                                        <input name="city" id="city" type="text" placeholder="Houston" class="validate">
                                         <label for="city">City</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="input field col s6 offset-m3 m3">
-                                        <input id="state" type="text" placeholder="Texas" class="autocomplete">
+                                        <input name="state" id="state" type="text" placeholder="Texas" class="autocomplete">
                                         <label for="state">State</label>
                                     </div>
 
                                     <div class="input field col s6 m3">
-                                        <input id="zip" type="text" class="validate">
+                                        <input name="zip" id="zip" type="text" class="validate">
                                         <label for="zip">Zip Code</label>
                                     </div>
                                 </div>
@@ -365,12 +365,12 @@
                     <div>Are you a Home Owner: &nbsp;&nbsp;&nbsp;
 
                         <label>
-                            <input class="with-gap" name="homeowner" type="radio" value="owns" />
+                            <input class="with-gap" name="homeowner" type="radio" value="yes" />
                             <span>Yes</span>
                         </label>
 
                         <label>
-                            <input class="with-gap" name="homeowner" type="radio" value="rents" checked/>
+                            <input class="with-gap" name="homeowner" type="radio" value="no" checked/>
                             <span>No</span>
                         </label>
                     </div>
