@@ -24,6 +24,13 @@ class MainHandler(TemplateHandler):
       'no-store, no-cache, must-revalidate, max-age=0')
     self.render_template("index.html", {})
 
+class frm_submit():
+  def get (self, context):
+    content = self.request.body_arguments
+    self.write(template.render(**content))
+
+
+
 class PageHandler(TemplateHandler):
   def get(self, page):
    
@@ -38,7 +45,8 @@ def make_app():
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
     (r"/", MainHandler),
     (r"/(form)", PageHandler),
-    (r"/(index)", PageHandler)
+    (r"/(index)", PageHandler),
+    (r"/(success)", frm_submit)
   ], autoreload=True)
 
 if __name__ == "__main__":
