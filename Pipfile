@@ -1,25 +1,12 @@
 [[source]]
 
 url = "https://pypi.python.org/simple"
-<<<<<<< HEAD
-name = "pypi"
-verify_ssl = true
-
-
-[dev-packages]
-
-=======
 verify_ssl = true
 name = "pypi"
->>>>>>> 0f7ae3195067d6ff4ff167e17d1ac57cf65200c2
 
 
 [packages]
 
-<<<<<<< HEAD
-tornado = "*"
-"jinja2" = "*"
-=======
 ipython = "*"
 tornado = "*"
 pylint = "*"
@@ -33,4 +20,3 @@ requests = "*"
 [dev-packages]
 
 pylint = "*"
->>>>>>> 0f7ae3195067d6ff4ff167e17d1ac57cf65200c2
