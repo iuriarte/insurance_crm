@@ -31,11 +31,11 @@ class frm_submit(TemplateHandler):
     form = self.request.body_arguments
     self.render_template("success.html", {'form': form})
 
-  def get(self, page):
-    page = page +'.html'
-    self.set_header(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, max-age=0')
+  # def get(self, page):
+  #   page = page +'.html'
+  #   self.set_header(
+  #     'Cache-Control',
+  #     'no-store, no-cache, must-revalidate, max-age=0')
   
   
 
