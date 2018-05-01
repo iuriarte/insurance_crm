@@ -36,7 +36,7 @@ class PageHandler(TemplateHandler):
     
     conn = psycopg2.connect("dbname=Kappa user=postgres")
     cur = conn.cursor()
-    cur.execute("SELECT * FROM customerstemp")
+    cur.execute("SELECT name FROM customerstemp")
     data = cur.fetchall()
     self.render_template(page, {'data':data})
 
