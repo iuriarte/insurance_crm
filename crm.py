@@ -38,7 +38,13 @@ class PageHandler(TemplateHandler):
     cur = conn.cursor()
     cur.execute("SELECT name FROM customerstemp")
     data = cur.fetchall()
-    self.render_template(page, {'data':data})
+    names = []
+    for d in data:
+      names.append(d[0])
+    print(names)
+    self.render_template(page, {'data': names})
+    cur.close()
+    conn.close()
 
 
 class LoginHandler(TemplateHandler):
