@@ -2,6 +2,7 @@ let drivers = 1;
 let cars = 1;
 // M.AutoInit();
 // var instance = M.Tabs.init('.tabs', );
+
 function materialize() {
     $(".datepicker").datepicker({
         yearRange: 90
@@ -34,6 +35,7 @@ function materialize() {
         } else {
             jQuery("#accidents").show();
         }
+        
     });
 
 
@@ -49,6 +51,9 @@ $(window).on("load", function () {
     $("#add_btn").on("click", function () {
 
         drivers += 1;
+        
+       
+
         $(
             `<li class="tab"><a href="#driver${drivers}"> driver ${drivers}</a> </li>`
         ).insertBefore("#add_li");
@@ -216,18 +221,29 @@ $(window).on("load", function () {
         }
     });
 
-
+   
         materialize();
+       
+        
+        setTimeout(function () {
+          $("#driver_tabs li.tab a")[`${drivers - 1}`].click()
+          $(`#driver${drivers-1}`).css('display', 'none')
+          $(`#driver${drivers-1}`).removeClass('active')
+          $(`#driver${drivers}`).addClass('active')
+        }, 100);
+
+       
+
     });
 
     $("#add_car_btn").on("click", function () {
 
         cars += 1;
         $(
-            `<li class="tab"><a href="#car${cars}"> car ${cars}</a> </li>`
+            `<li class="tab"><a href="#vehicle${cars}"> vehicle ${cars}</a> </li>`
         ).insertBefore("#add_car_li");
-        $(`<div id="car${cars}" style='display:none;'>
-    <!-- driver ${cars} Tabs-->
+        $(`<div id="vehicle${cars}" style='display:none;'>
+    <!-- vehicle ${cars} Tabs-->
       <div id="vehicle${cars}">
                 <h5 class="center-align" class="fs-title">Vehicle ${cars}</h5>
                 <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
@@ -313,6 +329,13 @@ $(window).on("load", function () {
     });
 
         materialize();
+        setTimeout(function () {
+          $("#cars_tabs li.tab a")[`${cars - 1}`].click()
+          $(`#vehicle${cars-1}`).css('display', 'none')
+          $(`#vehicle${cars-1}`).removeClass('active')
+          $(`#vehicle${cars}`).addClass('active')
+        }, 100);
+
     });
 
 

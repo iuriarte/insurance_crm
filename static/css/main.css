@@ -1,18 +1,22 @@
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    background-image: url('http://www.electricgnome.com/codiad/workspace/Kappa/image/polonez_car.png');
-  }
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url("http://www.electricgnome.com/codiad/workspace/Kappa/image/polonez_car.png");
+}
 
-  main {
-    flex: 1 0 auto;
-  }
+main {
+  flex: 1 0 auto;
+}
 
-  .optional {
-    display:none;
-  }
+.optional {
+  display: none;
+}
 
-  .table_display{
-    background-color:#ffebee ;
-  }
+.table_display {
+  background-color: #ffebee;
+}
+
+.padding-0 {
+  padding: 0 !important;
+}
