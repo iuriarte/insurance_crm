@@ -3,6 +3,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.log
 import os
+import json
 
 from jinja2 import \
   Environment, PackageLoader, select_autoescape
@@ -24,6 +25,22 @@ class MainHandler(TemplateHandler):
       'no-store, no-cache, must-revalidate, max-age=0')
     self.render_template("index.html", {})
 
+class frm_submit(TemplateHandler):
+  def post(self, data):
+    
+    form = self.request.body_arguments
+    self.render_template("success.html", {'form': form})
+
+  # def get(self, page):
+  #   page = page +'.html'
+  #   self.set_header(
+  #     'Cache-Control',
+  #     'no-store, no-cache, must-revalidate, max-age=0')
+  
+  
+
+
+
 class PageHandler(TemplateHandler):
   def get(self, page):
    
@@ -38,7 +55,8 @@ def make_app():
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
     (r"/", MainHandler),
     (r"/(form)", PageHandler),
-    (r"/(index)", PageHandler)
+    (r"/(index)", PageHandler),
+    (r"/(success)", frm_submit)
   ], autoreload=True)
 
 if __name__ == "__main__":

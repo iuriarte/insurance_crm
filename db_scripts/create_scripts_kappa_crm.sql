@@ -1,7 +1,7 @@
 -- CREATE DATABASE kappa
 -- change database to kappa
 
-CREATE SCHEMA crm
+CREATE SCHEMA crm;
 
 CREATE TABLE crm.employee (
 	-- populated internally
@@ -191,9 +191,9 @@ CREATE TABLE crm.car (
 	(SELECT id from company where name = @company_name) is null then create new company record
 	*/
 	vin	char(17)	NOT NULL,
-	make	varchar(25)	NOT NULL,
-	model	varchar(25)	NOT NULL,
-	year	int	NOT NULL,
+	make	varchar(25)	NULL,
+	model	varchar(25)	NULL,
+	year	int	NULL,
 	created_date	timestamp	NOT NULL,
 	-- created_date now() at record creation
 	updated_date	timestamp	NOT NULL
