@@ -2,21 +2,21 @@
 <!-- multistep form -->
 <div class="container z-depth-5" style="margin-top:20px;">
 
-    <form class="col s6" action="success" method="POST" id="form">
+    <form class="col s6" action="success" method="POST" id="form_update">
         <div class="card">
             <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width">
                     <li class="tab">
-                        <a href="#drivers" class="active">Drivers</a>
+                        <a href="#details" class="active">Policy Details</a>
+                    </li>
+                    <li class="tab">
+                        <a href="#drivers" >Drivers</a>
                     </li>
                     <li class="tab">
                         <a href="#vehicles">Vehicles</a>
                     </li>
                     <li class="tab">
                         <a href="#discounts">Discounts</a>
-                    </li>
-                    <li class="tab">
-                        <a href="#details">Policy Details</a>
                     </li>
                 </ul>
             </div>
@@ -29,7 +29,7 @@
                         <div class="card-tabs">
                             <ul class="tabs" id="driver_tabs">
                                 <li class="tab">
-                                    <a  href="#driver1" class="active">Primary</a>
+                                    <a href="#driver1" class="active">Primary</a>
                                 </li>
                                 <li class="tab" id="add_li">
                                     <a href="#add" id="add_btn">
@@ -233,13 +233,13 @@
                         </div>
                     </div>
                 </div>
-               
+
                 <div id="vehicles">
                     <div class="card  z-depth-0">
                         <div class="card-tabs">
                             <ul class="tabs" id="cars_tabs">
                                 <li class="tab">
-                                    <a class="active" href="#vehicle1">Vehicle 1</a>
+                                    <a href="#vehicle1" class="active">Vehicle 1</a>
                                 </li>
                                 <li class="tab" id="add_car_li">
                                     <a href="#add_car_lnk" id="add_car_btn">
@@ -383,7 +383,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div id="details">
                     <h5 class="center-align" class="fs-title">Customer/Policy details</h5>
                     <h6 class="center-align" class="fs-subtitle">Policy and comments</h6>
