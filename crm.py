@@ -138,9 +138,10 @@ def make_app():
     (r"/loginsuccess", LoginHandler),
     (r"/(register)", RegisterHandler),
     (r"/", MainHandler),
-    (r"/(tempsearch)", PageHandler)
+    (r"/(tempsearch)", PageHandler),
     (r"/(form)", PageHandler),
     (r"/(index)", PageHandler),
+    (r"/(customer)", PageHandler),    
     (r"/(success)", frm_submit)
   ], autoreload=True)
 

@@ -1,3 +1,11 @@
+CREATE TABLE customerstemp (
+  id SERIAL NOT NULL,
+  name VARCHAR,
+  age INT,
+  car VARCHAR,
+  gender VARCHAR
+);
+
 CREATE TABLE users (
   id SERIAL NOT NULL PRIMARY KEY,
   username VARCHAR,
