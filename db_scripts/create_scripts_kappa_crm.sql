@@ -13,8 +13,8 @@ CREATE TABLE crm.employee (
 	-- gender 'M = male, F = female, O = other'
 	email	varchar(50)	NOT NULL,
 	phone	bigint	NOT NULL,
-	active_flag	bit(1)	NOT NULL DEFAULT '1'::bit,
-	user_id int NOT NULL REFERENCES security.users(id),
+	active_flag	BOOLEAN	NOT NULL DEFAULT TRUE,
+	user_id int NOT NULL,
 	-- user_id comes from security.users.id
 	created_date	timestamp	NOT NULL,
 	-- created_date now() at record creation
@@ -43,24 +43,24 @@ CREATE TABLE crm.customer (
 	city	varchar(50)	NULL,
 	state	char(2)	NULL,
 	zip	int	NULL,
-	pref_language	char(15)	NULL,
+	pref_language	char(15)	NULL DEFAULT 'English',
 	customer_rating	smallint	NULL CHECK (customer_rating between 1 and 5) DEFAULT 5,
-	homeowner_flag	bit(1)	NULL,
+	homeowner_flag	BOOLEAN	NULL,
 	-- homeowner_flag comes from discount page
-	curr_insured_flag	bit(1)	NULL,
+	curr_insured_flag	BOOLEAN	NULL,
 	-- curr_insured_flag comes from discount page
 	curr_insured_duration	varchar(30)	NULL,
 	-- curr_insured_duration 'Less than 6 months, 6 to 11 months, 12 months or longer'
 	-- curr_insured_duration comes from discount page
 	curr_carrier	varchar(255)	NULL,
 	-- curr_carrier comes from discount page
-	accident_tickets_flag	bit(1)	NULL,
+	accident_tickets_flag	BOOLEAN	NULL,
 	-- accident_tickets_flag comes from points page
 	num_accidents	int	NULL,
 	-- num_accidents comes from points page
 	num_tickets	int	NULL,
 	-- num_tickets comes from points page
-	at_fault_flag	bit(1)	NULL,
+	at_fault_flag	BOOLEAN	NULL,
 	-- at_fault_flag comes from points page
 	status	char(1)	NOT NULL DEFAULT 'P',
 	-- status 'A = active, I = inactive, P = prospect', status change handled by policy_customer
@@ -91,13 +91,13 @@ CREATE TABLE crm.company (
 CREATE TABLE crm.policy (
 	-- populated by quote or policy page
 	id	serial	PRIMARY KEY,
-	policy_agent_id	int	NOT NULL REFERENCES crm.employee(id),
+	policy_agent_id	int	NULL REFERENCES crm.employee(id),
 	-- policy_agent_id is the employee id from user creating policy
-	carrier_id	int	NOT NULL REFERENCES crm.company(id),
+	carrier_id	int	NULL REFERENCES crm.company(id),
 	type	varchar(30)	NOT NULL,
+	-- type for now is 'auto', to give room for future expansion
 	quote_number varchar(50) NULL,
 	quote_amt real NULL,
-	-- type for now is 'auto', to give room for future expansion
 	policy_number	varchar(50) NULL,
 	created_date	timestamp NOT NULL,
 	-- created_date now() at record creation
@@ -142,7 +142,7 @@ CREATE TABLE crm.policy_payment (
 	--payment_date is date payment is due for payment number
 	-- payment_date is policy.created_date + interval 'payment_number months',
 	-- policy.created_date + interval '2 months' for payment number 2 for policy_id
-	status	char(1)	NOT NULL	DEFAULT 'P',
+	status	char(1)	NOT NULL	DEFAULT 'U',
 	-- status 'P = Paid, U = Unpaid, C = Cancelled'
 	created_date	timestamp NOT NULL,
 	-- created_date now() at record creation
@@ -158,11 +158,12 @@ CREATE TABLE crm.policy_customer (
 	id	serial	PRIMARY KEY,
 	policy_id	int	NOT NULL REFERENCES crm.policy(id),
 	customer_id	int	NOT NULL REFERENCES crm.customer(id),
-	primary_flag	bit(1)	NOT NULL,
+	primary_flag	BOOLEAN	NOT NULL,
 	-- primary_flag '1=primary, 0=other',
 	relation	varchar(50)	NULL,
-	active_flag	bit(1)	NOT NULL	DEFAULT '0'::bit,
+	active_flag	smallint	NULL	DEFAULT NULL,
 	-- updated by policy.status update
+	-- 1 = active on policy, 0 = inactive on policy, NULL is quote
 	/* for any entry/update to active_flag
 	if
 (SELECT max(active) from policy_customer where customer_id = @customer_id) = 1
@@ -200,23 +201,32 @@ CREATE TABLE crm.car (
 	-- updated_date now() at record creation and ANY update to record
 );
 
+
 CREATE TABLE crm.coverage (
-	-- populated by coverage page
+	-- populated by vehicles page, coverage page
 	id	serial	PRIMARY KEY,
-	policy_id int	NOT NULL REFERENCES crm.policy(id),
+	policy_id	int	NOT NULL REFERENCES crm.policy(id),
 	car_id	int	NOT NULL REFERENCES crm.car(id),
 	type	varchar(25)	NOT NULL,
 	-- type 'Liability, Full Comprehensive, Full Collision',
 	deductible_amount	real	NULL,
 	-- deductible only populated if type <> 'Liability'
-	active_flag	bit(1)	NOT NULL DEFAULT '0'::bit,
-	-- active_flag updated by policy.status update
+	pip_flag	BOOLEAN	NOT NULL	DEFAULT FALSE,
+	-- updated by coverage page
+	uninsured_motor_flag	BOOLEAN	NOT NULL	DEFAULT FALSE,
+	-- updated by coverage page
+	rental_flag	BOOLEAN	NOT NULL DEFAULT FALSE,
+	-- updated by coverage page
+	towing_flag	BOOLEAN	NOT NULL DEFAULT FALSE,
+	-- updated by coverage page
+	active_flag	smallint	NULL	DEFAULT NULL,
+	-- updated by policy.status update
+	-- 1 = active on policy, 0 = inactive on policy, null is quote
 	created_date	timestamp	NOT NULL,
 	-- created_date now() at record creation
 	updated_date	timestamp	NOT NULL
 	-- updated_date now() at record creation and ANY update to record
 );
-
 
 CREATE TABLE crm.contact_info (
 	-- populated by contact page
@@ -248,7 +258,7 @@ CREATE TABLE crm.payment_info (
 	-- expiration_date 'if CC then not null, else null',
 	created_date	timestamp	NOT NULL,
 	-- created_date now() at record creation
-	active_flag	bit(1)	NOT NULL DEFAULT '1'::bit
+	active_flag	BOOLEAN	NOT NULL DEFAULT TRUE
 	-- in future will need job to monitor if expiration_date > now() then active_flag = 0, to remind the user of expired info
 );
 
@@ -291,7 +301,7 @@ CREATE TABLE crm.task (
 	due_date	timestamp	NOT NULL,
 	assigned_to	int	NOT NULL,	
 	-- assigned_to 'if not specified, = created_by',
-	completed_flag	bit(1)	NOT NULL DEFAULT '0'::bit,	
+	completed_flag	BOOLEAN	NOT NULL DEFAULT FALSE,	
 	-- completed_flag changes to 1 when marked complete
 	updated_date	timestamp	NOT NULL
 	-- updated_date now() at record creation and ANY update to record
@@ -312,26 +322,7 @@ CREATE TABLE crm.rep (
 	comments	varchar(255)	NULL
 );
 
-CREATE TABLE crm.policy_cars (
-	-- populated by vehicles page, coverage page
-	id	serial	PRIMARY KEY,
-	policy_id	int	NOT NULL REFERENCES crm.policy(id),
-	car_id	int	NOT NULL REFERENCES crm.car(id),
-	pip_flag	bit(1)	NOT NULL	DEFAULT '0'::bit,
-	-- updated by coverage page
-	uninsured_motor_flag	bit(1)	NOT NULL	DEFAULT '0'::bit,
-	-- updated by coverage page
-	rental_flag	bit(1)	NOT NULL DEFAULT '0'::bit,
-	-- updated by coverage page
-	towing_flag	bit(1)	NOT NULL DEFAULT '0'::bit,
-	-- updated by coverage page
-	active	bit(1)	NOT NULL	DEFAULT '0'::bit,
-	-- updated by policy.status update
-	created_date	timestamp	NOT NULL,
-	-- created_date now() at record creation
-	updated_date	timestamp	NOT NULL
-	-- updated_date now() at record creation and ANY update to record
-);
+
 
 
 CREATE TABLE crm.audit_header (
