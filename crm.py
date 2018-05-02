@@ -96,9 +96,11 @@ class RegisterHandler(LoginHandler):
       self.redirect(u"/login" + error_msg)
     else:
       password = self.get_body_argument("password", None)
-      hashed_pass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(8))
+      password_string = str(password)
+      hashed_pass = bcrypt.hashpw(password_string.encode('utf-8'), bcrypt.gensalt(12))
+      print(hashed_pass.decode('utf-8'))
       # bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
-      cur.execute("INSERT INTO users VALUES (DEFAULT,%s, %s, %s)",(username, hashed_pass, role))
+      cur.execute("INSERT INTO users VALUES (DEFAULT,%s, %s, %s)",(username, hashed_pass.decode('utf-8'), role))
       conn.commit()
       success_msg = u"?success=" + tornado.escape.url_escape("Registered User Successfully")
       self.redirect(u"/register" + success_msg)
