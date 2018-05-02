@@ -52,12 +52,10 @@ $(window).on("load", function () {
 
         drivers += 1;
         
-       
-
         $(
             `<li class="tab"><a href="#driver${drivers}"> driver ${drivers}</a> </li>`
         ).insertBefore("#add_li");
-        $(`<div id="driver${drivers}" style='display:none;'>
+        $(`<div id="driver${drivers}" style='display:block'; class="active">
     <!-- driver ${drivers} Tabs-->
 <h5 class="center-align">Driver ${drivers} information</h5>
 <!-- <h6 class="center-align">Additional driver info</h6> -->
@@ -229,7 +227,7 @@ $(window).on("load", function () {
           $("#driver_tabs li.tab a")[`${drivers - 1}`].click()
           $(`#driver${drivers-1}`).css('display', 'none')
           $(`#driver${drivers-1}`).removeClass('active')
-          $(`#driver${drivers}`).addClass('active')
+        //   $(`#driver${drivers}`).addClass('active')
         }, 100);
 
        
@@ -242,7 +240,7 @@ $(window).on("load", function () {
         $(
             `<li class="tab"><a href="#vehicle${cars}"> vehicle ${cars}</a> </li>`
         ).insertBefore("#add_car_li");
-        $(`<div id="vehicle${cars}" style='display:none;'>
+        $(`<div id="vehicle${cars}" style='display:block'; class="active">
     <!-- vehicle ${cars} Tabs-->
       <div id="vehicle${cars}">
                 <h5 class="center-align" class="fs-title">Vehicle ${cars}</h5>
@@ -333,19 +331,11 @@ $(window).on("load", function () {
           $("#cars_tabs li.tab a")[`${cars - 1}`].click()
           $(`#vehicle${cars-1}`).css('display', 'none')
           $(`#vehicle${cars-1}`).removeClass('active')
-          $(`#vehicle${cars}`).addClass('active')
+        //   $(`#vehicle${cars}`).addClass('active')
         }, 100);
 
     });
 
-
-
-    // $('#add_btn').click(function(){
-    //   drivers+=1
-    //   $(`<li class="tab"><a href="#drvier${drivers}"> drvier ${drivers}</a> </li>`).insertBefore(`#add_li`)
-    //   $(`<div id="driver${drivers}" style='display:none;' >hello</div>`).insertBefore('#add_div')
-
-    // })
 });
 
 
