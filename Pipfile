@@ -7,10 +7,12 @@ name = "pypi"
 
 [packages]
 
-ipython = "*"
 tornado = "*"
-pylint = "*"
 "jinja2" = "*"
+bcrypt = "*"
+"psycopg2" = "*"
+ipython = "*"
+pylint = "*"
 "boto3" = "*"
 queries = "*"
 requests = "*"
@@ -19,4 +21,9 @@ requests = "*"
 
 [dev-packages]
 
+
+
+[requires]
+
+python_version = "3.6"
 pylint = "*"
