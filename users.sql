@@ -1,3 +1,7 @@
+-- createdb -U postgres Kappa
+-- psql -U postgres -d Kappa -a -f users.sql
+
+
 CREATE TABLE customerstemp (
   id SERIAL NOT NULL,
   name VARCHAR,
