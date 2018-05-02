@@ -106,6 +106,30 @@ class RegisterHandler(LoginHandler):
       self.redirect(u"/register" + success_msg)
       cur.close()
       conn.close()
+class frm_submit(TemplateHandler):
+  def post(self, data):
+    
+    form = self.request.body_arguments
+    self.render_template("success.html", {'form': form})
+
+  # def get(self, page):
+  #   page = page +'.html'
+  #   self.set_header(
+  #     'Cache-Control',
+  #     'no-store, no-cache, must-revalidate, max-age=0')
+  
+  
+
+
+
+# class PageHandler(TemplateHandler):
+#   def get(self, page):
+   
+#     page = page + '.html'
+#     self.set_header(
+#       'Cache-Control',
+#       'no-store, no-cache, must-revalidate, max-age=0')
+#     self.render_template(page,{})
 
 def make_app():
   return tornado.web.Application([
@@ -115,6 +139,9 @@ def make_app():
     (r"/(register)", RegisterHandler),
     (r"/", MainHandler),
     (r"/(tempsearch)", PageHandler)
+    (r"/(form)", PageHandler),
+    (r"/(index)", PageHandler),
+    (r"/(success)", frm_submit)
   ], autoreload=True)
 
 if __name__ == "__main__":

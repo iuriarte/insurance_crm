@@ -1,4 +1,9 @@
 {
     "python.pythonPath": "/usr/bin/python3",
+<<<<<<< HEAD
     "python.linting.pylintEnabled": false
+=======
+    "python.linting.pylintEnabled": false,
+    "python.formatting.provider": "yapf"
+>>>>>>> master
 }
