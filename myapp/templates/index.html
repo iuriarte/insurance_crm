@@ -8,7 +8,7 @@
         <div class="col s12 table_display">
             <table class="striped highlight responisive-table">
                 <thead>
-                    <tr> <h5>Payment pending within 5 days</h5>
+                    <tr> <h5>May Payments</h5>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Day</th>
@@ -22,46 +22,17 @@
                 </thead>
 
                 <tbody>
+                    {% for d in data %}
                     <tr>
-                        <td>Alvin Chipmunk</td>
-                        <td>123-321-4569</td>
-                        <td>5</td>
-                        <td>12/05/18</td>
-                        <td>PAID</td>
-                        <td>253.00</td>
-                        <td>Customer called to pay</td>
-                        <td>Progressive</td>
-                        <td>23135648</td>
-
+                        {% for i in d %}
+                            <td>{{ i }}</td>
+                        {% endfor %}
                     </tr>
-                    <tr>
-                        <td>Alan Watts</td>
-                        <td>321-123-6548</td>
-                        <td>4</td>
-                        <td>05/03/17</td>
-                        <td>Pending</td>
-                        <td>181.00</td>
-                        <td>Called cust. no answer</td>
-                        <td>Empower</td>
-                        <td>EAL321548</td>
-                    </tr>
-                    <tr>
-                        <td>Jonathan Pinkerton</td>
-                        <td>789-321-6542</td>
-                        <td>15</td>
-                        <td>02/12/2018</td>
-                        <td>PAID</td>
-                        <td>234.00</td>
-                        <td>AutoPay</td>
-                        <td>Infinity</td>
-                        <td>1400322356560001</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
        </div>
     <!--  </div> -->
 
 </div>
-
-
 {% endblock %}
