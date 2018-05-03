@@ -170,9 +170,9 @@ def make_app():
     (r"/(register)", RegisterHandler),
     (r"/", MainHandler),
     (r"/(tempsearch)", PageHandler),
-    (r"/(test)", PageHandler),
     (r"/(form)", PageHandler),
     (r"/(index)", PageHandler),
+    (r"/(customer)", PageHandler),    
     (r"/(success)", frm_submit)
   ], autoreload=True)
 

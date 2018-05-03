@@ -1,9 +1,11 @@
 let drivers = 1;
 let cars = 1;
+let vresult=[];
 // M.AutoInit();
 // var instance = M.Tabs.init('.tabs', );
 
 function materialize() {
+    $('.modal').modal();    
     $(".datepicker").datepicker({
         yearRange: 90
     });
@@ -38,12 +40,51 @@ function materialize() {
         
     });
 
-
+    $('input.counter').characterCounter();
 
 
 }
+// 1N4AL3AP6DN452526
+function verify_vin(vin){
+    vresult; 
+    $.ajax({
+        url: "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/",
+        type: "POST",
+        data: { format: "json", data: vin},
+        dataType: "json",
+        success: function(result)
+        {
+            vresult = result;
+            if (vresult.Message == "No data found" || vresult.Results[0].ErrorCode.indexOf("0") != 0 ){
+                // alert(vresult.Results[0].ErrorCode)
+                // console.log(vresult.Results[0].ErrorCode)
+                $("#error_msg").html(`${vresult.Results[0].ErrorCode}`);
+                $("#modal1").modal('open')
+                return 0;
+            }else{
+          console.log(result);
+          $(`#brand${drivers}`).val($(`#brand${drivers}`).val() + vresult.Results[0].Make);
+          $(`#year${drivers}`).val($(`#year${drivers}`).val() + vresult.Results[0].ModelYear);
+          $(`#model${drivers}`).val($(`#model${drivers}`).val() + vresult.Results[0].Model);
+            }
+
+        },
+        error: function(xhr, ajaxOptions, thrownError)
+        {
+            console.log(xhr.status);
+            console.log(thrownError);
+        }
+    });
+}
+
 
 $(window).on("load", function () {
+   
+    $("#verify_vin").on("click", function () {
+    
+        verify_vin(document.getElementById(`VIN${drivers}`).value);
+        
+    });
 
     materialize();
 
@@ -52,12 +93,10 @@ $(window).on("load", function () {
 
         drivers += 1;
         
-       
-
         $(
             `<li class="tab"><a href="#driver${drivers}"> driver ${drivers}</a> </li>`
         ).insertBefore("#add_li");
-        $(`<div id="driver${drivers}" style='display:none;'>
+        $(`<div id="driver${drivers}" style='display:block'; class="active">
     <!-- driver ${drivers} Tabs-->
 <h5 class="center-align">Driver ${drivers} information</h5>
 <!-- <h6 class="center-align">Additional driver info</h6> -->
@@ -150,7 +189,7 @@ $(window).on("load", function () {
     </div>
     <div class="input field col s6 m3">
         <label for="ID_No${drivers}">ID Number</label>
-        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate">
+        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate counter" data-length="20">
 
     </div>
 
@@ -229,7 +268,7 @@ $(window).on("load", function () {
           $("#driver_tabs li.tab a")[`${drivers - 1}`].click()
           $(`#driver${drivers-1}`).css('display', 'none')
           $(`#driver${drivers-1}`).removeClass('active')
-          $(`#driver${drivers}`).addClass('active')
+        //   $(`#driver${drivers}`).addClass('active')
         }, 100);
 
        
@@ -242,22 +281,27 @@ $(window).on("load", function () {
         $(
             `<li class="tab"><a href="#vehicle${cars}"> vehicle ${cars}</a> </li>`
         ).insertBefore("#add_car_li");
-        $(`<div id="vehicle${cars}" style='display:none;'>
+        $(`<div id="vehicle${cars}" style='display:block'; class="active">
     <!-- vehicle ${cars} Tabs-->
       <div id="vehicle${cars}">
                 <h5 class="center-align" class="fs-title">Vehicle ${cars}</h5>
                 <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
                 <div class="row">
                     <div class="input field col s3 offset-m3 m3">
-                        <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number" required />
+                        <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number"   class="counter" data-length="17" required />
                         <label for="VIN${cars}">(VIN) Vehicle Identification Number</label>
                     </div>
-                    <div class="input field col s3 ">
-                        <input type="text" name="year${cars}" placeholder="year" />
+                    <div class="col s3 offset-m1 m3">
+                        <a class="btn waves-effect waves-light" name="verify_vin" id="verify_vin" >verify VIN
+                        </a>
                     </div>
+                  
                 </div>
                 <div class="row">
-                    <div class="input field col s3 offset-m3 m3">
+                    <div class="input field col s3 offset-m1 m3">
+                        <input type="text" name="year${cars}" placeholder="year" />
+                    </div>
+                    <div class="input field col s3 ">
                         <input type="text" name="brand${cars}" placeholder="brand" />
                     </div>
                     <div class="input field col s3 ">
@@ -333,19 +377,11 @@ $(window).on("load", function () {
           $("#cars_tabs li.tab a")[`${cars - 1}`].click()
           $(`#vehicle${cars-1}`).css('display', 'none')
           $(`#vehicle${cars-1}`).removeClass('active')
-          $(`#vehicle${cars}`).addClass('active')
+        //   $(`#vehicle${cars}`).addClass('active')
         }, 100);
 
     });
 
-
-
-    // $('#add_btn').click(function(){
-    //   drivers+=1
-    //   $(`<li class="tab"><a href="#drvier${drivers}"> drvier ${drivers}</a> </li>`).insertBefore(`#add_li`)
-    //   $(`<div id="driver${drivers}" style='display:none;' >hello</div>`).insertBefore('#add_div')
-
-    // })
 });
 
 
