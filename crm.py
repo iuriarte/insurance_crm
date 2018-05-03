@@ -172,6 +172,7 @@ def make_app():
     (r"/(tempsearch)", PageHandler),
     (r"/(form)", PageHandler),
     (r"/(index)", PageHandler),
+    (r"/(customer)", PageHandler),    
     (r"/(success)", frm_submit)
   ], autoreload=True)
 
