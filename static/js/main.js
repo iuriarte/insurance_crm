@@ -38,7 +38,7 @@ function materialize() {
         
     });
 
-
+    $('input.counter').characterCounter();
 
 
 }
@@ -148,7 +148,7 @@ $(window).on("load", function () {
     </div>
     <div class="input field col s6 m3">
         <label for="ID_No${drivers}">ID Number</label>
-        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate">
+        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate counter" data-length="20">
 
     </div>
 
@@ -247,7 +247,7 @@ $(window).on("load", function () {
                 <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
                 <div class="row">
                     <div class="input field col s3 offset-m3 m3">
-                        <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number" required />
+                        <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number"   class="counter" data-length="17" required />
                         <label for="VIN${cars}">(VIN) Vehicle Identification Number</label>
                     </div>
                     <div class="input field col s3 ">
