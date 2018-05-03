@@ -1,5 +1,6 @@
 let drivers = 1;
 let cars = 1;
+let vresult=[];
 // M.AutoInit();
 // var instance = M.Tabs.init('.tabs', );
 
@@ -42,8 +43,40 @@ function materialize() {
 
 
 }
+// 1N4AL3AP6DN452526
+function verify_vin(vin){
+    vresult; 
+    $.ajax({
+        url: "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/",
+        type: "POST",
+        data: { format: "json", data: vin},
+        dataType: "json",
+        success: function(result)
+        {
+            vresult = result;
+          console.log(result);
+          $(`#brand${drivers}`).val($(`#brand${drivers}`).val() + vresult.Results[0].Make);
+          $(`#year${drivers}`).val($(`#year${drivers}`).val() + vresult.Results[0].ModelYear);
+          $(`#model${drivers}`).val($(`#model${drivers}`).val() + vresult.Results[0].Model);
+          
+
+        },
+        error: function(xhr, ajaxOptions, thrownError)
+        {
+            console.log(xhr.status);
+            console.log(thrownError);
+        }
+    });
+}
+
 
 $(window).on("load", function () {
+   
+    $("#verify_vin").on("click", function () {
+    
+        verify_vin(document.getElementById(`VIN${drivers}`).value);
+        
+    });
 
     materialize();
 
@@ -250,12 +283,17 @@ $(window).on("load", function () {
                         <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number"   class="counter" data-length="17" required />
                         <label for="VIN${cars}">(VIN) Vehicle Identification Number</label>
                     </div>
-                    <div class="input field col s3 ">
-                        <input type="text" name="year${cars}" placeholder="year" />
+                    <div class="col s3 offset-m1 m3">
+                        <a class="btn waves-effect waves-light" name="verify_vin" id="verify_vin" >verify VIN
+                        </a>
                     </div>
+                  
                 </div>
                 <div class="row">
-                    <div class="input field col s3 offset-m3 m3">
+                    <div class="input field col s3 offset-m1 m3">
+                        <input type="text" name="year${cars}" placeholder="year" />
+                    </div>
+                    <div class="input field col s3 ">
                         <input type="text" name="brand${cars}" placeholder="brand" />
                     </div>
                     <div class="input field col s3 ">
