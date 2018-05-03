@@ -19,7 +19,7 @@
                     {% for name in data %}
                     {
                     // hidden_val: "{{ data[0] }}",
-                        label: "{{name|safe}}"
+                        label: "{{name.LastName|safe}}, {{name.FirstName|safe}}, {{name.PhoneNumber|safe}}, {{name.PolicyNumber|safe}}"
                     },
                     {% endfor %}
                 ];
