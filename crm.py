@@ -41,7 +41,6 @@ class PageHandler(TemplateHandler):
     names = []
     for d in data:
       names.append(d[0])
-    print(names)
     self.render_template(page, {'data': names})
     cur.close()
     conn.close()
@@ -135,10 +134,11 @@ def make_app():
   return tornado.web.Application([
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
     (r"/(login)", LoginHandler),
-    (r"/loginsuccess", LoginHandler),
+    (r"/(loginsuccess)", LoginHandler),
     (r"/(register)", RegisterHandler),
     (r"/", MainHandler),
-    (r"/(tempsearch)", PageHandler)
+    (r"/(tempsearch)", PageHandler),
+    (r"/(test)", PageHandler),
     (r"/(form)", PageHandler),
     (r"/(index)", PageHandler),
     (r"/(success)", frm_submit)
