@@ -1,9 +1,11 @@
 let drivers = 1;
 let cars = 1;
+let vresult=[];
 // M.AutoInit();
 // var instance = M.Tabs.init('.tabs', );
 
 function materialize() {
+    $('.modal').modal();    
     $(".datepicker").datepicker({
         yearRange: 90
     });
@@ -38,12 +40,51 @@ function materialize() {
         
     });
 
-
+    $('input.counter').characterCounter();
 
 
 }
+// 1N4AL3AP6DN452526
+function verify_vin(vin){
+    vresult; 
+    $.ajax({
+        url: "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/",
+        type: "POST",
+        data: { format: "json", data: vin},
+        dataType: "json",
+        success: function(result)
+        {
+            vresult = result;
+            if (vresult.Message == "No data found" || vresult.Results[0].ErrorCode.indexOf("0") != 0 ){
+                // alert(vresult.Results[0].ErrorCode)
+                // console.log(vresult.Results[0].ErrorCode)
+                $("#error_msg").html(`${vresult.Results[0].ErrorCode}`);
+                $("#modal1").modal('open')
+                return 0;
+            }else{
+          console.log(result);
+          $(`#brand${drivers}`).val($(`#brand${drivers}`).val() + vresult.Results[0].Make);
+          $(`#year${drivers}`).val($(`#year${drivers}`).val() + vresult.Results[0].ModelYear);
+          $(`#model${drivers}`).val($(`#model${drivers}`).val() + vresult.Results[0].Model);
+            }
+
+        },
+        error: function(xhr, ajaxOptions, thrownError)
+        {
+            console.log(xhr.status);
+            console.log(thrownError);
+        }
+    });
+}
+
 
 $(window).on("load", function () {
+   
+    $("#verify_vin").on("click", function () {
+    
+        verify_vin(document.getElementById(`VIN${drivers}`).value);
+        
+    });
 
     materialize();
 
@@ -148,7 +189,7 @@ $(window).on("load", function () {
     </div>
     <div class="input field col s6 m3">
         <label for="ID_No${drivers}">ID Number</label>
-        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate">
+        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate counter" data-length="20">
 
     </div>
 
@@ -247,15 +288,20 @@ $(window).on("load", function () {
                 <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
                 <div class="row">
                     <div class="input field col s3 offset-m3 m3">
-                        <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number" required />
+                        <input type="text" id="VIN${cars}" name="VIN${cars}" placeholder="(VIN) Vehicle Identification Number"   class="counter" data-length="17" required />
                         <label for="VIN${cars}">(VIN) Vehicle Identification Number</label>
                     </div>
-                    <div class="input field col s3 ">
-                        <input type="text" name="year${cars}" placeholder="year" />
+                    <div class="col s3 offset-m1 m3">
+                        <a class="btn waves-effect waves-light" name="verify_vin" id="verify_vin" >verify VIN
+                        </a>
                     </div>
+                  
                 </div>
                 <div class="row">
-                    <div class="input field col s3 offset-m3 m3">
+                    <div class="input field col s3 offset-m1 m3">
+                        <input type="text" name="year${cars}" placeholder="year" />
+                    </div>
+                    <div class="input field col s3 ">
                         <input type="text" name="brand${cars}" placeholder="brand" />
                     </div>
                     <div class="input field col s3 ">
