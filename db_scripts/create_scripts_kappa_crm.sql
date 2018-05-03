@@ -97,7 +97,7 @@ CREATE TABLE crm.policy (
 	type	varchar(30)	NOT NULL,
 	-- type for now is 'auto', to give room for future expansion
 	quote_number varchar(50) NULL,
-	quote_amt real NULL,
+	quote_amt numeric NULL,
 	policy_number	varchar(50) NULL,
 	created_date	timestamp NOT NULL,
 	-- created_date now() at record creation
@@ -120,7 +120,7 @@ CREATE TABLE crm.policy (
 	UPDATE policy_customer SET active_flag = 1 where policy_id = @policy_id
 	UPDATE policy_car SET active_flag = 1 where policy_id = @policy_id
 	*/
-	premium_amt	real NULL,
+	premium_amt	numeric NULL,
 	cancelled_date	timestamp	NULL,
 	-- cancelled_date only populated if status = 'Cancelled'
 	updated_date	timestamp	NOT NULL
@@ -209,7 +209,7 @@ CREATE TABLE crm.coverage (
 	car_id	int	NOT NULL REFERENCES crm.car(id),
 	type	varchar(25)	NOT NULL,
 	-- type 'Liability, Full Comprehensive, Full Collision',
-	deductible_amount	real	NULL,
+	deductible_amount	numeric	NULL,
 	-- deductible only populated if type <> 'Liability'
 	pip_flag	BOOLEAN	NOT NULL	DEFAULT FALSE,
 	-- updated by coverage page

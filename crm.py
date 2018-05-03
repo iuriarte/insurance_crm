@@ -25,7 +25,37 @@ class MainHandler(TemplateHandler):
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    self.render_template("index.html", {})
+      
+    conn = psycopg2.connect("dbname=kappa user=postgres")
+    cur = conn.cursor()
+    cur.execute("""
+    select c.first_name || ' ' || c.last_name as name, c.phone, round(cast(date_part('day',p.effective_date) as integer),0) as day, cast(p.effective_date as date) as inception_date, 
+    case when pp.status = 'P' then 'PAID' else 'UNPAID' end as paid, round(p.premium_amt,2) as premium, n.note, co.name as carrier, p.policy_number  from crm.customer c
+    join crm.note n on n.customer_id = c.id
+    join crm.policy_customer pc on pc.customer_id = c.id
+    join crm.policy p on p.id = pc.policy_id
+    join crm.company co on co.id = p.carrier_id
+    join (select policy_id, status from crm.policy_payment pp
+    where date_part('month',payment_date) = date_part('month', now()) and status <> 'C'
+    GROUP BY policy_id, status) pp on pp.policy_id = p.id
+    where pc.active_flag = 1 and pc.primary_flag = TRUE
+    order by date_part('day',p.effective_date);""")
+    data = cur.fetchall()
+    #print(data[0][0])
+    values = []
+    for r in data:
+       values.append(r)
+
+    #   print('---')
+    # names = []
+    # for d in data:
+    #   names.append(d[0])
+    # print(names)
+    # self.render_template("index.html", {'data': names})
+    cur.close()
+    conn.close()
+    self.render_template("index.html", {'data':values})
+
 
 class PageHandler(TemplateHandler):
   def get(self, page):

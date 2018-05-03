@@ -81,7 +81,7 @@ INSERT INTO crm.payment_info VALUES (DEFAULT,1,'DD','Chase Bank','0000-0000','',
 INSERT INTO crm.payment_info VALUES (DEFAULT,3,'CC','Capital One Visa','4255654376548760','8760','214','2020-07-01',now(),TRUE);
 INSERT INTO crm.payment_info VALUES (DEFAULT,4,'DD','Wells Fargo','1111-1111','','',null,now(),TRUE);
 INSERT INTO crm.payment_info VALUES (DEFAULT,9,'DD','IBC Bank','2222-2222','','',null,now(),TRUE);
-INSERT INTO crm.note VALUES (DEFAULT,1,now(),'John called to make his first payment.',1,now());
+INSERT INTO crm.note VALUES (DEFAULT,1,now(),'Spoke with Salah. Will follow up on delayed payment.',1,now());
 INSERT INTO crm.note VALUES (DEFAULT,3,now(),'Noe is not pronounced like no.',2,now());
 INSERT INTO crm.note VALUES (DEFAULT,4,now(),'Trisha wants a requote excluding her son Tyler.',3,now());
 INSERT INTO crm.note VALUES (DEFAULT,8,now(),'Hay que revisar sus documentos.',1,now());
