@@ -5,6 +5,7 @@ let vresult=[];
 // var instance = M.Tabs.init('.tabs', );
 
 function materialize() {
+    $('.modal').modal();    
     $(".datepicker").datepicker({
         yearRange: 90
     });
@@ -54,11 +55,18 @@ function verify_vin(vin){
         success: function(result)
         {
             vresult = result;
+            if (vresult.Message == "No data found" || vresult.Results[0].ErrorCode.indexOf("0") != 0 ){
+                // alert(vresult.Results[0].ErrorCode)
+                // console.log(vresult.Results[0].ErrorCode)
+                $("#error_msg").html(`${vresult.Results[0].ErrorCode}`);
+                $("#modal1").modal('open')
+                return 0;
+            }else{
           console.log(result);
           $(`#brand${drivers}`).val($(`#brand${drivers}`).val() + vresult.Results[0].Make);
           $(`#year${drivers}`).val($(`#year${drivers}`).val() + vresult.Results[0].ModelYear);
           $(`#model${drivers}`).val($(`#model${drivers}`).val() + vresult.Results[0].Model);
-          
+            }
 
         },
         error: function(xhr, ajaxOptions, thrownError)
