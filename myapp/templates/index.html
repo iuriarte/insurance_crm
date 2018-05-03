@@ -2,13 +2,11 @@
 
 <!-- <div class="container z-depth-5 table_display" style="margin-top:80px;"> -->
 
-
-    <div class="row">
-
-        <div class="col s12 table_display">
-            <table class="striped highlight responisive-table">
+    <div class="row" style="padding-top:10%">
+        <div class="col s8 table_display offset-s2">
+            <table class="highlight responsive-table centered">
                 <thead>
-                    <tr> <h5>May Payments</h5>
+                    <tr> <h5 class="center-align">May Payments</h5>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Day</th>
@@ -23,7 +21,7 @@
 
                 <tbody>
                     {% for d in data %}
-                    <tr>
+                    <tr class="hoverable">
                         {% for i in d %}
                             <td>{{ i }}</td>
                         {% endfor %}
@@ -34,5 +32,5 @@
        </div>
     <!--  </div> -->
 
-</div>
+
 {% endblock %}
