@@ -29,7 +29,7 @@ class PageHandler(TemplateHandler):
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
     
-    conn = psycopg2.connect("dbname=kappa user=postgres")
+    conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
     cur = conn.cursor()
     cur.execute("""
             SELECT first_name, last_name, phone, policy_number FROM crm.customer
