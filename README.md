@@ -11,12 +11,16 @@ This will install all requiered python dependencies from the pipfile.
 You must also run the SQL scripts in order to create the DB and if desired pre-populate with customer/policy data.
 Assuming you have postgres installed in your environment, please run the following SQL scripts from the db_scripts folder in shell:
 
-<code>createdb -U postgres Kappa
+<code>createdb -U postgres Kappa</code>
+
 <code>psql -U postgres -d Kappa -a -f create_scripts_kappa_security.sql</code>
+
 <code>psql -U postgres -d Kappa -a -f create_scripts_kappa_crm.sql</code>
+
 <code>psql -U postgres -d Kappa -a -f insert_scripts_kappa_crm.sql</code>
 
 Once the DB tables have been created a user must be created in order to add additional users.
+
 
 To run the app, in a shell run:
 <code>
