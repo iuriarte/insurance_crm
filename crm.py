@@ -21,7 +21,6 @@ class TemplateHandler(tornado.web.RequestHandler):
     self.write(template.render(**context))
 
 
-
 class PageHandler(TemplateHandler):
   def get(self, page):
     page = page + '.html'
@@ -132,6 +131,7 @@ def make_app():
     (r"/(loginsuccess)", LoginHandler),
     (r"/(register)", RegisterHandler),
     (r"/(tempsearch)", PageHandler),
+    (r"/(index)", PageHandler),
     (r"/(form)", PageHandler),
     (r"/(customer)", PageHandler),        
     (r"/(success)", frm_submit)
