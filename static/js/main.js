@@ -15,8 +15,8 @@ function materialize() {
     $(".tooltipped").tooltip();
     $(".sidenav").sidenav();
 
-    $("input[type=radio][name=currently_insured]").click(function () {
-        if ($("input[type=radio][name=currently_insured]:checked").val() === "No") {
+    $("input[type=radio][name=curr_insured_flag]").click(function () {
+        if ($("input[type=radio][name=curr_insured_flag]:checked").val() === "0") {
             jQuery("#pop").hide();
         } else {
             jQuery("#pop").show();
@@ -31,11 +31,11 @@ function materialize() {
         }
     });
 
-    $("input[type=radio][name=tickets_accidents]").click(function () {
-        if ($("input[type=radio][name=tickets_accidents]:checked").val() == "No") {
-            jQuery("#accidents").hide();
+    $(`input[type=radio][name=accident_tickets_flag${drivers}]`).click(function () {
+        if ($(`input[type=radio][name=accident_tickets_flag${drivers}]:checked`).val() == "0") {
+            jQuery(`#accidents${drivers}`).hide();
         } else {
-            jQuery("#accidents").show();
+            jQuery(`#accidents${drivers}`).show();
         }
         
     });
@@ -79,14 +79,14 @@ function verify_vin(vin){
 
 
 $(window).on("load", function () {
+    
+    materialize();
    
     $("#verify_vin").on("click", function () {
     
         verify_vin(document.getElementById(`VIN${drivers}`).value);
         
     });
-
-    materialize();
 
 
     $("#add_btn").on("click", function () {
@@ -188,8 +188,8 @@ $(window).on("load", function () {
         <label>Form of ID (Choose one):</label>
     </div>
     <div class="input field col s6 m3">
-        <label for="ID_No${drivers}">ID Number</label>
-        <input name="id_no${drivers}" id="ID_No${drivers}" type="text" class="validate counter" data-length="20">
+        <label for="id_number${drivers}">ID Number</label>
+        <input name="id_number${drivers}" id="id_number${drivers}" type="text" class="validate counter" data-length="20">
 
     </div>
 
@@ -201,12 +201,12 @@ $(window).on("load", function () {
 <br> Any accidents or tickets in the past 5 years: &nbsp;&nbsp;&nbsp;
 
 <label>
-    <input class="with-gap" name="tickets_accidents${drivers}" type="radio" value="Yes" />
+    <input class="with-gap" name="accident_tickets_flag${drivers}" type="radio" value="1" />
     <span>Yes</span>
 </label>
 
 <label>
-    <input class="with-gap" name="tickets_accidents${drivers}" type="radio" value="No" checked/>
+    <input class="with-gap" name="accident_tickets_flag${drivers}" type="radio" value="0" checked/>
     <span>No</span>
 </label>
 
@@ -217,7 +217,7 @@ $(window).on("load", function () {
             <br>
             <span class="c1">How many tickets have you had in the past 3 years?</span>
             <span class="c2">
-                <input type="number" min="0" max="4" value="0" name="ticekts${drivers}">
+                <input type="number" min="0" max="4" value="0" name="num_tickets${drivers}">
             </span>
 
         </div>
@@ -229,17 +229,17 @@ $(window).on("load", function () {
             <br>
             <span class="c1">How many accidents have you had in the past 3 years?</span>
             <span class="c2">
-                <input type="number" min="0" max="4" value="0" name="accidents${drivers}">
+                <input type="number" min="0" max="4" value="0" name="num_accidents${drivers}">
             </span>
             <br>
             <br> were any of these accidents at fault?
             <label>
-                <input class="with-gap" name="at_fault${drivers}" type="radio" value="Yes" />
+                <input class="with-gap" name="at_fault_flag${drivers}" type="radio" value="1" />
                 <span>Yes</span>
             </label>
 
             <label>
-                <input class="with-gap" name="at_fault${drivers}" type="radio" value="No" checked/>
+                <input class="with-gap" name="at_fault_flag${drivers}" type="radio" value="0" checked/>
                 <span>No</span>
             </label>
             <br>
@@ -252,8 +252,8 @@ $(window).on("load", function () {
     </div>`).insertBefore("#add_div");
 
 
-    $(`input[type=radio][name=tickets_accidents${drivers}]`).click(function () {
-        if ($(`input[type=radio][name=tickets_accidents${drivers}]:checked`).val() == "No") {
+    $(`input[type=radio][name=accident_tickets_flag${drivers}]`).click(function () {
+        if ($(`input[type=radio][name=accident_tickets_flag${drivers}]:checked`).val() == "0") {
             jQuery(`#accidents${drivers}`).hide();
         } else {
             jQuery(`#accidents${drivers}`).show();
@@ -336,22 +336,22 @@ $(window).on("load", function () {
                             <h5 class="center-align">Additional coverage:</h5>
                             <br>
                             <label>
-                                <input type="checkbox" name="PIP${cars}" value="PIP">
+                                <input type="checkbox" name="pip_flag${cars}" value="1">
                                 <span>Personal Injury Protection (PIP)</span>
                             </label>
                             <br>
                             <label>
-                                <input type="checkbox" name="UM${cars}" value="UM">
+                                <input type="checkbox" name="uninsured_motor_flag${cars}" value="1">
                                 <span>Uninsured Motorist</span>
                             </label>
                             <br>
                             <label>
-                                <input type="checkbox" name="RENTAL${cars}" value="Rental">
+                                <input type="checkbox" name="rental_flag${cars}" value="1">
                                 <span>Rental</span>
                             </label>
                             <br>
                             <label>
-                                <input type="checkbox" name="Towing${cars}" value="Towing">
+                                <input type="checkbox" name="towing_flag${cars}" value="1">
                                 <span>Towing</span>
                             </label>
                         </div>
