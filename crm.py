@@ -64,7 +64,7 @@ class PageHandler(TemplateHandler):
     
     conn = psycopg2.connect("dbname=Kappa user=postgres")
     cur = conn.cursor()
-    cur.execute(""""SELECT first_name, last_name, phone, policy_number FROM crm.customer
+    cur.execute("""SELECT first_name, last_name, phone, policy_number FROM crm.customer
                 JOIN crm.policy_customer on customer_id = crm.customer.id
                 JOIN crm.policy on crm.policy.id = crm.policy_customer.policy_id""")
     data = cur.fetchall()
