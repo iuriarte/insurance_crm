@@ -5,21 +5,20 @@ This is a CRM aimed at small Personal Auto Insurance agencies. The purpose is to
 
 To install this app you must have pipenv installed and run the following command under the app root directory in shell:
 
-pipenv install
+<code>pipenv install</code>
 
 This will install all requiered python dependencies from the pipfile. 
 You must also run the SQL scripts in order to create the DB and if desired pre-populate with customer/policy data.
 Assuming you have postgres installed in your environment, please run the following SQL scripts from the db_scripts folder in shell:
 
-createdb -U postgres Kappa
-psql -U postgres -d Kappa -a -f create_scripts_kappa_security.sql
-psql -U postgres -d Kappa -a -f create_scripts_kappa_crm.sql
-psql -U postgres -d Kappa -a -f insert_scripts_kappa_crm.sql
-
+<code>createdb -U postgres Kappa
+<code>psql -U postgres -d Kappa -a -f create_scripts_kappa_security.sql</code>
+<code>psql -U postgres -d Kappa -a -f create_scripts_kappa_crm.sql</code>
+<code>psql -U postgres -d Kappa -a -f insert_scripts_kappa_crm.sql</code>
 
 Once the DB tables have been created a user must be created in order to add additional users.
 
 To run the app, in a shell run:
-
+<code>
 pipenv shell python crm.py
-
+</code>
