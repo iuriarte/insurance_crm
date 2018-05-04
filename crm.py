@@ -39,19 +39,25 @@ class PageHandler(TemplateHandler):
     self.render_template(page,{})
 
 #handler for web form post into db
-class MyHandler(tornado.web.RequestHandler):
+class MyHandler(TemplateHandler):
   def post(self):
-    name  = self.get_argument("Name", "")
-    index = self.get_argument("Index","")
+    fname  = self.get_body_argument("first_name", "")
+    lname = self.get_body_argument("last_name","")
+    
+    print(self.request.body_arguments)
 #  .... code for updating DB
     #for loop
-    self.session.query("INSERT INTO car VALUES (%(name)s, %(index)s);", {'name': name, 'index': index})
+    self.session.query("INSERT INTO crm.customer (first_name, last_name,created_date, updated_date) VALUES (%(first_name)s, %(last_name)s, now(), now());", {'first_name': fname, 'last_name': lname})
+    print(fname, lname)
+    self.render_template('form-success.html',{})
 
 def make_app():
   return tornado.web.Application([
     (r"/static/(.*)" ,tornado.web.StaticFileHandler, {'path': 'static'}),
     (r"/", MainHandler),
     (r"/(form)", PageHandler),
+    (r"/submit", MyHandler),
+    #(r"/(cinfo)", PageHandler),
     (r"/(index)", PageHandler)
   ], autoreload=True)
 
