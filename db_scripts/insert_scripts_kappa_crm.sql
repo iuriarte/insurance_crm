@@ -2,6 +2,9 @@ INSERT INTO crm.employee VALUES (DEFAULT,'Juanita','Salas','1980-01-23','F','jsa
 INSERT INTO crm.employee VALUES (DEFAULT,'Jordan','Ping','1979-04-17','M','jping@kappainsure.com',7138675309,TRUE,2,now(),now());
 INSERT INTO crm.employee VALUES (DEFAULT,'Faysal','Cantu','1985-09-04','M','fcantu@kappainsure.com',8325678945,TRUE,3,now(),now());
 INSERT INTO crm.employee VALUES (DEFAULT,'Meesha','Patel','1975-05-02','F','mpatel@kappainsure.com',8326693568,TRUE,4,now(),now());
+INSERT INTO crm.employee VALUES (DEFAULT,'Emy','Saldana','1985-01-01','F','esaldana@kappainsure.com',8321234567,TRUE,5,now(),now());
+INSERT INTO crm.employee VALUES (DEFAULT,'Hector','Saldana','1985-01-01','M','hsaldana@kappainsure.com',8321234568,TRUE,6,now(),now());
+INSERT INTO crm.employee VALUES (DEFAULT,'Perla','Agent','1985-01-01','F','psaldana@kappainsure.com',8321234569,TRUE,7,now(),now());
 INSERT INTO crm.customer VALUES (DEFAULT,1,'Salah','Doe','1990-04-04','M','Married','Analyst','sdoe@gmail.com',2813308004,'Texas ID','08992103','832 Woodland Trl','Houston','TX',77098,'English',3,FALSE,FALSE,NULL,'',TRUE,1,0,FALSE,'A',now(),1,now());
 INSERT INTO crm.customer VALUES (DEFAULT,1,'Nisha','Doe','1991-02-17','F','Married','Professor','ndoe@gmail.com',2813308005,'Texas ID','76382933','832 Woodland Trl','Houston','TX',77098,'English',5,FALSE,FALSE,NULL,'',TRUE,1,0,FALSE,'A',now(),1,now());
 INSERT INTO crm.customer VALUES (DEFAULT,2,'Noe','Abarca','1988-05-14','M','Single','Banker','nabarca@gmail.com',2814992004,'Passport','31749003','217 Celestial Dr','Houston','TX',77006,'Spanish',5,TRUE,TRUE,6,'Liberty Mutual',FALSE,0,0,FALSE,'A',now(),2,now());
@@ -16,7 +19,12 @@ INSERT INTO crm.company VALUES (DEFAULT,'dealership','','Russell & Smith Mazda',
 INSERT INTO crm.company VALUES (DEFAULT,'carrier','geico.com/policy','Geico',8008412964,NULL,'1403 Spring Cypress Road, Suite 104','Spring','TX',77373);
 INSERT INTO crm.company VALUES (DEFAULT,'lienholder','','Houston Federal Credit Union',8666874328,NULL,'16320 Kensington Drive','Sugar Land','TX',77479);
 INSERT INTO crm.company VALUES (DEFAULT,'dealership','','Momentum Volkswagen of Upper Kirby',8448945462,NULL,'2405 Richmond Ave','Houston','TX',77098);
-INSERT INTO crm.company VALUES (DEFAULT,'carrier','progressive.com/','Progressive Auto',2819829390,NULL,'22635 Imperial Valley Dr','Houston','TX',77073);
+INSERT INTO crm.company (type, name) VALUES ('carrier','Progressive');
+INSERT INTO crm.company (type, name) VALUES ('carrier','Infinity');
+INSERT INTO crm.company (type, name) VALUES ('carrier','Empower');
+INSERT INTO crm.company (type, name) VALUES ('carrier','Foremost');
+INSERT INTO crm.company (type, name) VALUES ('carrier','Mercury');
+INSERT INTO crm.company (type, name) VALUES ('carrier','Hallmark');
 INSERT INTO crm.policy VALUES (DEFAULT,1,2,'auto','23906',185,'04290',now(),'2018-04-07','2018-03-30',6,'2018-10-01','Autopay',85.00,NULL,now());
 INSERT INTO crm.policy VALUES (DEFAULT,2,2,'auto','54390',220.00,'03454',now(),'2018-02-11','2018-02-01',12,'2019-02-01','Autopay',120.00,NULL,now());
 INSERT INTO crm.policy VALUES (DEFAULT,3,5,'auto','69874',720.33,'87986',now(),'2018-03-27','2018-03-01',3,'2018-06-01','Renewal',620.33,NULL,now());
