@@ -17,9 +17,9 @@ INSERT INTO crm.company VALUES (DEFAULT,'carrier','geico.com/policy','Geico',800
 INSERT INTO crm.company VALUES (DEFAULT,'lienholder','','Houston Federal Credit Union',8666874328,NULL,'16320 Kensington Drive','Sugar Land','TX',77479);
 INSERT INTO crm.company VALUES (DEFAULT,'dealership','','Momentum Volkswagen of Upper Kirby',8448945462,NULL,'2405 Richmond Ave','Houston','TX',77098);
 INSERT INTO crm.company VALUES (DEFAULT,'carrier','progressive.com/','Progressive Auto',2819829390,NULL,'22635 Imperial Valley Dr','Houston','TX',77073);
-INSERT INTO crm.policy VALUES (DEFAULT,1,2,'auto','23906',185,'04290',now(),'2018-04-01','2018-03-30',6,'2018-10-01','Autopay',85.00,NULL,now());
-INSERT INTO crm.policy VALUES (DEFAULT,2,2,'auto','54390',220.00,'03454',now(),'2018-02-01','2018-02-01',12,'2019-02-01','Autopay',120.00,NULL,now());
-INSERT INTO crm.policy VALUES (DEFAULT,3,5,'auto','69874',720.33,'87986',now(),'2018-03-01','2018-03-01',3,'2018-06-01','Renewal',620.33,NULL,now());
+INSERT INTO crm.policy VALUES (DEFAULT,1,2,'auto','23906',185,'04290',now(),'2018-04-07','2018-03-30',6,'2018-10-01','Autopay',85.00,NULL,now());
+INSERT INTO crm.policy VALUES (DEFAULT,2,2,'auto','54390',220.00,'03454',now(),'2018-02-11','2018-02-01',12,'2019-02-01','Autopay',120.00,NULL,now());
+INSERT INTO crm.policy VALUES (DEFAULT,3,5,'auto','69874',720.33,'87986',now(),'2018-03-27','2018-03-01',3,'2018-06-01','Renewal',620.33,NULL,now());
 INSERT INTO crm.policy VALUES (DEFAULT,1,5,'auto','89425',150,'',now(),NULL,NULL,NULL,NULL,'Quote',NULL,NULL,now());
 INSERT INTO crm.policy VALUES (DEFAULT,4,2,'auto','98756',280,'69856',now(),'2018-01-01','2018-01-01',6,'2018-07-01','Cancelled',180,'2018-03-01',now());
 INSERT INTO crm.policy_payment VALUES (DEFAULT,1,1,'2018-04-01','P',now(),now(),1);

@@ -38,7 +38,7 @@ class PageHandler(TemplateHandler):
     names = []
     for d in data:
       names.append(d[0])
-    print(names)
+    #print(names)
     cur.execute("""
     SELECT c.first_name || ' ' || c.last_name as name, c.phone, round(cast(date_part('day',p.effective_date) as integer),0) as day, cast(p.effective_date as date) as inception_date, 
       case when pp.status = 'P' then 'PAID' else 'UNPAID' end as paid, round(p.premium_amt,2) as premium, n.note, co.name as carrier, p.policy_number  FROM crm.customer c
