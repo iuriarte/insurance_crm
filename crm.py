@@ -20,36 +20,6 @@ class TemplateHandler(tornado.web.RequestHandler):
     template = ENV.get_template(tpl)
     self.write(template.render(**context))
 
-class MainHandler(TemplateHandler):
-  def get(self):
-    self.set_header(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, max-age=0')
-      
-    conn = psycopg2.connect("dbname=kappa user=postgres")
-    cur = conn.cursor()
-    cur.execute("""
-    SELECT c.first_name || ' ' || c.last_name as name, c.phone, round(cast(date_part('day',p.effective_date) as integer),0) as day, cast(p.effective_date as date) as inception_date, 
-      case when pp.status = 'P' then 'PAID' else 'UNPAID' end as paid, round(p.premium_amt,2) as premium, n.note, co.name as carrier, p.policy_number  from crm.customer c
-    JOIN crm.note n on n.customer_id = c.id
-    JOIN crm.policy_customer pc on pc.customer_id = c.id
-    JOIN crm.policy p on p.id = pc.policy_id
-    JOIN crm.company co on co.id = p.carrier_id
-    JOIN (
-      SELECT policy_id, status FROM crm.policy_payment pp
-        WHERE date_part('month',payment_date) = date_part('month', now()) and status <> 'C'
-        GROUP BY policy_id, status) pp on pp.policy_id = p.id
-    WHERE pc.active_flag = 1 and pc.primary_flag = TRUE
-    ORDER BY date_part('day',p.effective_date);
-    """)
-    data = cur.fetchall()
-    values = []
-    for r in data:
-       values.append(r)
-    cur.close()
-    conn.close()
-    self.render_template("index.html", {'data':values})
-
 
 class PageHandler(TemplateHandler):
   def get(self, page):
@@ -58,15 +28,33 @@ class PageHandler(TemplateHandler):
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
     
-    conn = psycopg2.connect("dbname=Kappa user=postgres")
+    conn = psycopg2.connect("dbname=kappa user=postgres")
     cur = conn.cursor()
-    cur.execute("SELECT name FROM customerstemp")
+    cur.execute("""
+            SELECT first_name, last_name, phone, policy_number FROM crm.customer
+            JOIN crm.policy_customer on customer_id = crm.customer.id
+            JOIN crm.policy on crm.policy.id = crm.policy_customer.policy_id""")
     data = cur.fetchall()
     names = []
     for d in data:
       names.append(d[0])
     print(names)
-    self.render_template(page, {'data': names})
+    cur.execute("""
+    SELECT c.first_name || ' ' || c.last_name as name, c.phone, round(cast(date_part('day',p.effective_date) as integer),0) as day, cast(p.effective_date as date) as inception_date, 
+      case when pp.status = 'P' then 'PAID' else 'UNPAID' end as paid, round(p.premium_amt,2) as premium, n.note, co.name as carrier, p.policy_number  FROM crm.customer c
+    JOIN crm.note n on n.customer_id = c.id
+    JOIN crm.policy_customer pc on pc.customer_id = c.id
+    JOIN crm.policy p on p.id = pc.policy_id
+    JOIN crm.company co on co.id = p.carrier_id
+    JOIN (
+      SELECT policy_id, status FROM crm.policy_payment pp
+        WHERE date_part('month',payment_date) = date_part('month', now()) and date_part('year',payment_date) = date_part('year', now()) 
+        and status <> 'C') pp on pp.policy_id = p.id
+    WHERE pc.active_flag = 1 and pc.primary_flag = TRUE
+    ORDER BY date_part('day',p.effective_date);
+    """)
+    landingquery = cur.fetchall()
+    self.render_template(page, {'data': names,'query':landingquery})
     cur.close()
     conn.close()
 
@@ -161,7 +149,6 @@ def make_app():
     (r"/(login)", LoginHandler),
     (r"/loginsuccess", LoginHandler),
     (r"/(register)", RegisterHandler),
-    (r"/", MainHandler),
     (r"/(tempsearch)", PageHandler),
     (r"/(form)", PageHandler),
     (r"/(index)", PageHandler),
