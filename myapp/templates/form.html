@@ -25,17 +25,12 @@
             </div> -->
             <div class="card-content grey lighten-4 padding-0">
                 <div id="drivers">
-
-                    <!-- second Tabs  -->
                     <div class="card z-depth-0">
                         <div class="card-tabs">
                             <ul class="tabs" id="driver_tabs">
                                 <li class="tab">
-                                    <a class="active" href="#driver1">Primary</a>
+                                    <a href="#driver1" class="active">Primary</a>
                                 </li>
-                                <!-- <li class='tab'>
-                                    <a href="#driver2">Driver2</a>
-                                </li> -->
                                 <li class="tab" id="add_li">
                                     <a href="#add" id="add_btn">
                                         <i class="material-icons prefix">person_add</i>
@@ -45,16 +40,13 @@
                             </ul>
                         </div>
                         <div class="card-content grey lighten-4">
-
                             <div id="driver1">
-
-                                <!-- second Tabs-->
 
                                 <h5 class="center-align">Primary Driver information</h5>
                                 <!-- <h6 class="center-align">This is step 1</h6> -->
                                 <div class="row">
                                     <div class="input field col s6 offset-m3 m3">
-                                        <input name ="first_name" id="first_name" type="text" class="validate">
+                                        <input name="first_name" id="first_name" type="text" class="validate">
                                         <label for="first_name">First Name</label>
                                     </div>
 
@@ -65,7 +57,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="input field col s6 offset-m3 m3">
-                                        <input name="cell_phone" id="cell_phone" type="text" class="validate">
+                                        <input name="cell_phone" id="cell_phone" type="text" class="validate counter" data-length="10">
                                         <label for="cel_phone">cell phone</label>
                                     </div>
 
@@ -154,7 +146,7 @@
                                     </div>
                                     <div class="input field col s6 m3">
                                         <label for="ID_No">ID Number</label>
-                                        <input name="ID_No" id="ID_No" type="text" class="validate">
+                                        <input name="ID_No" id="ID_No" type="text" class="validate counter" data-length="20">
 
                                     </div>
 
@@ -179,7 +171,7 @@
                                     </div>
 
                                     <div class="input field col s6 m3">
-                                        <input name="zip" id="zip" type="text" class="validate">
+                                        <input name="zip" id="zip" type="text" class="validate counter" data-length="5">
                                         <label for="zip">Zip Code</label>
                                     </div>
                                 </div>
@@ -239,65 +231,67 @@
                                     </span>
 
                                 </div>
-
                                 <!-- </div> -->
-
-                                <!-- Tabs adders -->
                             </div>
-
                             <!-- <div id='driver2'> Hello</div> -->
-
                             <div id='add_div'></div>
                             <!-- Tabs adders-->
-
                         </div>
-
                     </div>
-
                 </div>
 
 
                 <div class="card-content grey lighten-4 padding-0">
                     <div id="vehicles">
-
+                        <div id="modal1" class="modal">
+                            <div class="modal-content">
+                                <h4>No Matching VIN</h4>
+                                <p id="error_msg"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            </div>
+                        </div>
                         <div class="card  z-depth-0">
-
                             <div class="card-tabs">
                                 <ul class="tabs" id="cars_tabs">
                                     <li class="tab">
-                                        <a class="active" href="#vehicle1">Vehicle 1</a>
+                                        <a href="#vehicle1" class="active">Vehicle 1</a>
                                     </li>
                                     <li class="tab" id="add_car_li">
                                         <a href="#add_car_lnk" id="add_car_btn">
                                             <i class="material-icons prefix">directions_car</i>
                                         </a>
                                     </li>
-
                                 </ul>
                             </div>
-
                             <div class="card-content grey lighten-4">
                                 <div id="vehicle1">
                                     <h5 class="center-align" class="fs-title">Vehicle 1</h5>
                                     <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
                                     <div class="row">
                                         <div class="input field col s3 offset-m3 m3">
-                                            <input type="text" id="VIN" name="VIN" placeholder="(VIN) Vehicle Identification Number" required />
-                                            <label for="VIN">(VIN) Vehicle Identification Number</label>
+                                            <input type="text" id="VIN1" name="VIN1" placeholder="(VIN) Vehicle Identification Number" class="counter" data-length="17"
+                                                required />
+                                            <label for="VIN1">(VIN) Vehicle Identification Number</label>
                                         </div>
-                                        <div class="input field col s3 ">
-                                            <input type="text" name="year" placeholder="year" />
+                                        <div class="col s3 offset-m1 m3">
+                                            <a class="btn waves-effect waves-light" name="verify_vin" id="verify_vin">verify VIN
+                                            </a>
                                         </div>
+
                                     </div>
                                     <div class="row">
-                                        <div class="input field col s3 offset-m3 m3">
-                                            <input type="text" name="brand" placeholder="brand" />
+                                        <div class="input field col s3  offset-m1 m3 ">
+                                            <input type="text" name="year1" id="year1" placeholder="year" />
+                                        </div>
+                                        <div class="input field col s3">
+                                            <input type="text" name="brand1" id="brand1" placeholder="brand" />
                                         </div>
                                         <div class="input field col s3 ">
-                                            <input type="text" name="model" placeholder="model" />
+                                            <input type="text" name="model1" id="model1" placeholder="model" />
                                         </div>
                                     </div>
-
 
                                     <div id="coverages">
                                         <h5 class="center-align">Coverage</h5>
@@ -345,19 +339,14 @@
                                                 </label>
                                             </div>
                                         </div>
-
                                     </div>
                                     <!-- Add additional cars here -->
-
                                 </div>
                                 <div id='add_car'></div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
-
 
                 <div id="discounts">
                     <h5 class="center-align">Discounts</h5>
@@ -499,7 +488,9 @@
             </div>
         </div>
     </form>
+
 </div>
+
 
 
 {% endblock %}

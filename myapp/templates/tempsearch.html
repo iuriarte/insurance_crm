@@ -1,51 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- <head>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body>
-        <div class="input-field col s12">
-                <i class="material-icons prefix">search</i>
-                <input type="text" id="autocomplete-input" class="autocomplete">
-                <label for="autocomplete-input">Autocomplete</label>
-        </div>
-        <ul>
-            <li>
-                {{ data }}
-            </li>
-        </ul>
-
-</body> -->
-
-<head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>jQuery UI Autocomplete - Default functionality</title>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>   
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
+    <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Customer Search</title>
+            <link rel="stylesheet" href="../static/css/search.css">
+            <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>   
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
 
       <script>
-          function set(){
-              for(var i = 0; i < "{{data.length}}"; i++){
-                  var d = "{{data}}"
-                  console.log(d)
-              }
-              return d
-          }
-          set()
             $(function() {
                 var data = [
                     {% for name in data %}
                     {
                     // hidden_val: "{{ data[0] }}",
-                        label: "{{name|safe}}"
+                        label: "{{name.LastName|safe}}, {{name.FirstName|safe}}, {{name.PhoneNumber|safe}}, {{name.PolicyNumber|safe}}"
                     },
                     {% endfor %}
                 ];
@@ -62,10 +36,15 @@
             });
             </script>
     <body>
-        <input type="text" id="programs">
-        <!-- <input type="hidden" id="programs_val"> -->
-        <div id='info'>
-            <ul id="my-list"></ul>
+        <h1 id='h'>Customer Search</h1>
+        <div id='wrapper'>
+            <div id="column">
+                <i class="material-icons">search</i>
+                <input type="text" id="programs" class="autocomplete">
+            </div>
+            <div id='info'>
+                <ul id="my-list"></ul>
+            </div>
         </div>
     </body>
 </html>
