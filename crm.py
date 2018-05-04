@@ -20,19 +20,6 @@ class TemplateHandler(tornado.web.RequestHandler):
     template = ENV.get_template(tpl)
     self.write(template.render(**context))
 
-class MainHandler(TemplateHandler):
-  def get(self):
-    self.set_header(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, max-age=0')
-      
-    conn = psycopg2.connect("dbname=Kappa user=postgres")
-    cur = conn.cursor()
-    
-    cur.close()
-    conn.close()
-    self.render_template("index.html", {'data':data})
-
 class PageHandler(TemplateHandler):
   def get(self, page):
     page = page + '.html'
@@ -40,7 +27,7 @@ class PageHandler(TemplateHandler):
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
     
-    conn = psycopg2.connect("dbname=Kappa user=postgres")
+    conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
     cur = conn.cursor()
     cur.execute("""SELECT first_name, last_name, phone, policy_number FROM crm.customer
                 JOIN crm.policy_customer on customer_id = crm.customer.id
