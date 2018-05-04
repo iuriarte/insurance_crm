@@ -63,7 +63,7 @@ class LoginHandler(TemplateHandler):
     page = page + '.html'
     self.render_template(page, {})
 
-  def post(self):
+  def post(self, page):
     username = self.get_body_argument('username', None)
     password = self.get_body_argument("password", None)
     conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
