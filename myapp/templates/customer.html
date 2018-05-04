@@ -45,24 +45,24 @@
                                 <h5 class="center-align">Primary Driver information</h5>
                                 <!-- <h6 class="center-align">This is step 1</h6> -->
                                 <div class="row">
-                                    <div class="input field col s6 offset-m3 m3">
-                                        <input name="first_name" id="first_name" type="text" class="validate">
+                                    <div class="input-field col s6 offset-m3 m3">
+                                        <input name="first_name" id="first_name" type="text" class="validate" required>
                                         <label for="first_name">First Name</label>
                                     </div>
 
-                                    <div class="input field col s6  m3">
-                                        <input name="last_name" id="last_name" type="text" class="validate">
+                                    <div class="input-field col s6  m3">
+                                        <input name="last_name" id="last_name" type="text" class="validate" required>
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input field col s6 offset-m3 m3">
-                                        <input name="cell_phone" id="cell_phone" type="text" class="validate counter" data-length="10">
+                                    <div class="input-field col s6 offset-m3 m3">
+                                        <input name="cell_phone" id="cell_phone" type="number" class="validate counter" data-length="10" required>
                                         <label for="cel_phone">cell phone</label>
                                     </div>
 
-                                    <div class="input field col s6 m3">
-                                        <input name="email" id="email" type="text" class="validate">
+                                    <div class="input-field col s6 m3">
+                                        <input name="email" id="email" type="email" class="validate">
                                         <label for="email">Email</label>
                                     </div>
 
@@ -104,21 +104,21 @@
                                 </div>
                                 <div class="divider"></div>
                                 <div class="row">
-                                    <div class="input field col s12 offset-m3 m6">
+                                    <div class="input-field col s12 offset-m3 m6">
                                         <input name="occupation" id="occupation" type="text">
                                         <label for="occupation">Occupation</label>
                                     </div>
                                 </div>
                                 <div class="row">
 
-                                    <div class="col s6 offset-m3 m3">
+                                    <div class="input-field col s6 offset-m3 m3">
                                         <label for="birthdate" class>birthdate</label>
-                                        <input name="birthdate" id="birthdate" type="text" class="datepicker">
+                                        <input name="birthdate" id="birthdate" type="text" class="datepicker" class="validate" required>
 
 
                                     </div>
 
-                                    <div class=" input-field col s6 m3">
+                                    <div class="input-field col s6 m3">
                                         <select name="relation" id="relation">
                                             <option class="flow-text" value="self" selected>Self</option>
                                             <option value="spouse">Spouse/common law</option>
@@ -132,7 +132,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class=" input-field col s6 offset-m3 m3">
+                                    <div class="input-field col s6 offset-m3 m3">
                                         <select name="id_type" id="id_type">
                                             <option value="Tx DL" selected>Texas Drivers License</option>
                                             <option value="Tx ID">Texas ID</option>
@@ -144,34 +144,34 @@
                                         </select>
                                         <label>Form of ID (Choose one):</label>
                                     </div>
-                                    <div class="input field col s6 m3">
+                                    <div class="input-field col s6 m3">
                                         <label for="ID_No">ID Number</label>
-                                        <input name="ID_No" id="ID_No" type="text" class="validate counter" data-length="20">
+                                        <input name="ID_No" id="ID_No" type="text" class="counter" data-length="20">
 
                                     </div>
 
                                 </div>
 
                                 <div class="row">
-                                    <div class="input field col s6 offset-m3 m3">
-                                        <input name="street" id="street" type="text" class="validate">
+                                    <div class="input-field col s6 offset-m3 m3">
+                                        <input name="street" id="street" type="text" class="validate" required>
                                         <label for="street">Street Address</label>
                                     </div>
 
-                                    <div class="input field col s6 m3">
-                                        <input name="city" id="city" type="text" placeholder="Houston" class="validate">
+                                    <div class="input-field col s6 m3">
+                                        <input name="city" id="city" type="text" value="Houston" class="validate" required>
                                         <label for="city">City</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="input field col s6 offset-m3 m3">
-                                        <input name="state" id="state" type="text" placeholder="Texas" class="autocomplete">
+                                    <div class="input-field col s6 offset-m3 m3">
+                                        <input name="state" id="state" type="text" value="Texas" class="validate" required>
                                         <label for="state">State</label>
                                     </div>
 
-                                    <div class="input field col s6 m3">
-                                        <input name="zip" id="zip" type="text" class="validate counter" data-length="5">
+                                    <div class="input-field col s6 m3">
+                                        <input name="zip" id="zip" type="text" class="validate counter" data-length="5" required>
                                         <label for="zip">Zip Code</label>
                                     </div>
                                 </div>
@@ -253,19 +253,20 @@
                                 <h5 class="center-align" class="fs-title">Vehicle 1</h5>
                                 <h6 class="center-align" class="fs-subtitle">What Vehicle are we insuring today?</h6>
                                 <div class="row">
-                                    <div class="input field col s3 offset-m3 m3">
-                                        <input type="text" id="VIN" name="VIN" placeholder="(VIN) Vehicle Identification Number" class="counter" data-length="17" required />
+                                    <div class="input-field col s3 offset-m3 m3">
+                                        <input type="text" id="VIN" name="VIN" placeholder="(VIN) Vehicle Identification Number" class="validate counter" data-length="17"
+                                            required />
                                         <label for="VIN">(VIN) Vehicle Identification Number</label>
                                     </div>
-                                    <div class="input field col s3 ">
+                                    <div class="input-field col s3 ">
                                         <input type="text" name="year" placeholder="year" />
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="input field col s3 offset-m3 m3">
+                                    <div class="input-field col s3 offset-m3 m3">
                                         <input type="text" name="brand" placeholder="brand" />
                                     </div>
-                                    <div class="input field col s3 ">
+                                    <div class="input-field col s3 ">
                                         <input type="text" name="model" placeholder="model" />
                                     </div>
                                 </div>
@@ -437,7 +438,7 @@
                         </div>
 
                     </div>
-                    
+
                     <div class="row">
                         <div class="input-field col s6 offset-m3 m3">
                             <input name="dealer" id="dealer" type="text">
@@ -486,15 +487,15 @@
                             <label for="premium" class>Premium</label>
                         </div>
 
-                        <div class="input field col s6 m3">
+                        <div class="input-field col s6 m3">
                             <input name="payment_date" id="payment_date" type="text" class="datepicker">
                             <label for="payment_date" class>Payment Date</label>
                         </div>
                     </div>
                     <div class="row">
-                            <div class="divider"></div>
+                        <div class="divider"></div>
                         <div class=" input-field col s6 offset-m3 m3 ">
-                                
+
                             <select name="q_carrier" id="q_carrier">
                                 <option class="flow-text" value="" disabled selected>carrier</option>
                                 <option value="progressive">Progressive</option>
@@ -513,17 +514,18 @@
                         </div>
                     </div>
                     <div class="row">
-                            <div class=" input-field col s6 offset-m3 m3 ">
-                                <input name="down" id="down" type="text">
-                                <label for="down" class>Down Payment</label>
-                            </div></div>
-                            <div class="divider"></div>
-                            <div class="row">
-                                    <div class="input-field col s12">
-                                      <textarea id="notes" class="materialize-textarea"></textarea>
-                                      <label for="notes">Notes/Tasks</label>
-                                    </div>
-                                  </div>
+                        <div class=" input-field col s6 offset-m3 m3 ">
+                            <input name="down" id="down" type="text">
+                            <label for="down" class>Down Payment</label>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="notes" class="materialize-textarea"></textarea>
+                            <label for="notes">Notes/Tasks</label>
+                        </div>
+                    </div>
                 </div>
 
 
