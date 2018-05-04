@@ -20,14 +20,24 @@ class TemplateHandler(tornado.web.RequestHandler):
     template = ENV.get_template(tpl)
     self.write(template.render(**context))
 
-class MainHandler(TemplateHandler):
-  def get(self):
+class PageHandler(TemplateHandler):
+  def get(self, page):
+    page = page + '.html'
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-      
-    conn = psycopg2.connect("dbname=Kappa user=postgres")
+    
+    conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
     cur = conn.cursor()
+    cur.execute("""SELECT first_name, last_name, phone, policy_number FROM crm.customer
+                JOIN crm.policy_customer on customer_id = crm.customer.id
+                JOIN crm.policy on crm.policy.id = crm.policy_customer.policy_id""")
+    data = cur.fetchall()
+    # print(data)
+    names = []
+    for d in data:
+      names.append({'FirstName':d[0],'LastName': d[1], 'PhoneNumber':d[2], 'PolicyNumber':d[3]})
+    # print(names)
     cur.execute("""
     select c.first_name || ' ' || c.last_name as name, c.phone, round(cast(date_part('day',p.effective_date) as integer),0) as day, cast(p.effective_date as date) as inception_date, 
     case when pp.status = 'P' then 'PAID' else 'UNPAID' end as paid, round(p.premium_amt,2) as premium, n.note, co.name as carrier, p.policy_number  from crm.customer c
@@ -40,40 +50,8 @@ class MainHandler(TemplateHandler):
     GROUP BY policy_id, status) pp on pp.policy_id = p.id
     where pc.active_flag = 1 and pc.primary_flag = TRUE
     order by date_part('day',p.effective_date);""")
-    data = cur.fetchall()
-    # values = []
-    # for r in data:
-    #    values.append(r)
-    # print(values)
-    #   print('---')
-    # names = []
-    # for d in data:
-    #   names.append(d[0])
-    # print(names)
-    # self.render_template("index.html", {'data': names})
-    cur.close()
-    conn.close()
-    self.render_template("index.html", {'data':data})
-
-class PageHandler(TemplateHandler):
-  def get(self, page):
-    page = page + '.html'
-    self.set_header(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, max-age=0')
-    
-    conn = psycopg2.connect("dbname=Kappa user=postgres")
-    cur = conn.cursor()
-    cur.execute("""SELECT first_name, last_name, phone, policy_number FROM crm.customer
-                JOIN crm.policy_customer on customer_id = crm.customer.id
-                JOIN crm.policy on crm.policy.id = crm.policy_customer.policy_id""")
-    data = cur.fetchall()
-    # print(data)
-    names = []
-    for d in data:
-      names.append({'FirstName':d[0],'LastName': d[1], 'PhoneNumber':d[2], 'PolicyNumber':d[3]})
-    # print(names)
-    self.render_template(page, {'data': names})
+    landingquery = cur.fetchall()
+    self.render_template(page, {'data': names, 'query':landingquery})
     cur.close()
     conn.close()
 
@@ -142,25 +120,7 @@ class frm_submit(TemplateHandler):
     
     form = self.request.body_arguments
     self.render_template("success.html", {'form': form})
-
-  # def get(self, page):
-  #   page = page +'.html'
-  #   self.set_header(
-  #     'Cache-Control',
-  #     'no-store, no-cache, must-revalidate, max-age=0')
   
-  
-
-
-
-# class PageHandler(TemplateHandler):
-#   def get(self, page):
-   
-#     page = page + '.html'
-#     self.set_header(
-#       'Cache-Control',
-#       'no-store, no-cache, must-revalidate, max-age=0')
-#     self.render_template(page,{})
 
 def make_app():
   return tornado.web.Application([
@@ -168,11 +128,10 @@ def make_app():
     (r"/(login)", LoginHandler),
     (r"/(loginsuccess)", LoginHandler),
     (r"/(register)", RegisterHandler),
-    (r"/", MainHandler),
+    (r"/(index)", PageHandler),
     (r"/(tempsearch)", PageHandler),
     (r"/(form)", PageHandler),
-    (r"/(index)", PageHandler),
-    (r"/(customer)", PageHandler),    
+    (r"/(customer)", PageHandler),        
     (r"/(success)", frm_submit)
   ], autoreload=True)
 
