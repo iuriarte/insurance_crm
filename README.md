@@ -51,3 +51,5 @@ Color scheme:
 - The car table holds information about the car (e.g. make, model, vin, etc.)
 - The company table holds contact information about lienholders, dealerships, and carriers. The policy table has a carrier id while the car table holds the lienholder and the dealership ids, all of which relate to the company table. 
 - The specific reps for a company are in the rep table and relates to the company.
+- The employee table holds information related to agents working at the company. The employee can relate the policy as the agent who created the policy andn can relate to the customer as the customer's primary agent.
+- The audit tables populate with any changes made to the tables, i.e. entity and field affected, the type of change made (create, update, destroy), and old/new values for updates/creates.
