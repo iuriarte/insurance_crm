@@ -1,7 +1,7 @@
 import psycopg2
 import re
 
-conn = psycopg2.connect("dbname=kappa user=postgres")
+conn = psycopg2.connect("dbname=Kappa user=postgres")
 cur = conn.cursor()
 
 #take agent from agent on policy details page
