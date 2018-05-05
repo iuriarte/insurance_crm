@@ -63,12 +63,12 @@ class LoginHandler(TemplateHandler):
     page = page + '.html'
     self.render_template(page, {})
 
-  def post(self):
+  def post(self, page):
     username = self.get_body_argument('username', None)
     password = self.get_body_argument("password", None)
     conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
     cur = conn.cursor()
-    cur.execute("SELECT username, password FROM users WHERE username = %s", [username])
+    cur.execute("SELECT username, password FROM security.users WHERE username = %s", [username])
     user = cur.fetchone()
     print(user[1].encode('utf-8'))
     # hashed_pass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(8))
@@ -100,7 +100,7 @@ class RegisterHandler(LoginHandler):
     role = self.get_body_argument('role', None)
     conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
     cur = conn.cursor()
-    cur.execute("SELECT username, password FROM users WHERE username = %s", [username])
+    cur.execute("SELECT username, password FROM security.users WHERE username = %s", [username])
     already_taken = cur.fetchone()
     if already_taken:
       error_msg = u"?error=" + tornado.escape.url_escape("Login name already taken")
@@ -111,7 +111,7 @@ class RegisterHandler(LoginHandler):
       hashed_pass = bcrypt.hashpw(password_string.encode('utf-8'), bcrypt.gensalt(12))
       print(hashed_pass.decode('utf-8'))
       # bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
-      cur.execute("INSERT INTO users VALUES (DEFAULT,%s, %s, %s)",(username, hashed_pass.decode('utf-8'), role))
+      cur.execute("INSERT INTO security.users VALUES (DEFAULT,%s, %s, %s)",(username, hashed_pass.decode('utf-8'), role))
       conn.commit()
       success_msg = u"?success=" + tornado.escape.url_escape("Registered User Successfully")
       self.redirect(u"/register" + success_msg)

@@ -1,1 +1,1 @@
-web: python crm.py
+web: python write2db.py
