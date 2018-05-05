@@ -79,25 +79,48 @@ else:
 
 drivers = 2
 dict = {'first_name1' : 'A', 'first_name2' : 'B', 'last_name1' : 'A', 'last_name2' : 'B', 
-        'birthdate1' : '2018-05-04', 'birthdate2' : '2018-05-04', 'cell_phone1' : 2813308004, 'cell_phone2' : 2813308005, 
-        'email1' : '1@gmail.com', 'email2' : '2@gmail.com', 'occupation1' : 'Teacher', 'occupation2' : 'Nurse', 
+        'birthdate1' : '2018-05-04', 'birthdate2' : '2018-05-04', 'accident_tickets_flag1': True, 'accident_tickets_flag2':True, 
+         'occupation1' : 'Teacher', 'occupation2' : 'Nurse', 'ticekts1': 3, 'ticekts2':0, 'num_accidents1':0, 'num_accidents2':2,
         'gender1' : 'F', 'gender2' : 'M', 'marital_status1' : 'Married', 'marital_status2' : 'Married', 
         'relation1' : 'self', 'relation2' : 'husband', 'idtype1' : 'Texas ID', 'idtype2' : 'Texas ID',
-        'id_no1' : '2398', 'id_no2' : '203958'}
+        'id_no1' : '2398', 'id_no2' : '203958', 'at_fault1': False, 'at_fault2': True}
+driver_address = '123 Celestial'
+driver_city = 'Houston'
+driver_state = 'TX'
+driver_zip = 77098
+driver_pref_language = 'English'
+driver_customer_rating = 5
+driver_phone = 2813308004
+driver_email = '1@gmail.com'
 for x in range(1,drivers+1):
     driver_first_name = dict["first_name{}".format(x)]
+    print(driver_first_name)
     driver_last_name = dict["last_name{}".format(x)]
+    print(driver_last_name)
     driver_birthdate = dict["birthdate{}".format(x)]
-    driver_phone = dict["cell_phone{}".format(x)]
-    driver_email = dict["email{}".format(x)]
+    print(driver_birthdate)
     driver_occupation = dict["occupation{}".format(x)]
+    print(driver_occupation)
     driver_gender = dict["gender{}".format(x)]
+    print(driver_gender)
     driver_marital_status = dict["marital_status{}".format(x)]
+    print(driver_marital_status)
     if x == 1:
         driver_relation = ''
     else: 
         driver_relation = dict["relation{}".format(x)]
     driver_idtype = dict["idtype{}".format(x)]
-    driver_id_no = dict["id_no{}".format(x)]
+    print(driver_idtype)
+    driver_id_no = dict["id_numnber{}".format(x)]
+    print(driver_id_no)
+    driver_accidents_tickets = dict["accident_tickets_flag{}".format(x)]
+    print(driver_accidents_tickets)
+    driver_num_tickets = dict["ticekts{}".format(x)]
+    print(driver_num_tickets)
+    driver_num_accidents = dict["accidents{}".format(x)]
+    print(driver_num_accidents)
+    driver_at_fault_flag = dict["at_fault{}".format(x)]
+    print(driver_at_fault_flag)
+    
 cur.close()
 conn.close()
