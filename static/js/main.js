@@ -23,8 +23,8 @@ function materialize() {
         }
     });
 
-    $("select[name=coverage]").change(function () {
-        if ($("select[name=coverage][id=selects_field]").val() == "liability") {
+    $(`select[name=coverage${cars}]`).change(function () {
+        if ($(`select[name=coverage${cars}][id=selects_field]`).val() == "liability") {
             jQuery("#full_cover").hide();
         } else {
             jQuery("#full_cover").show();
@@ -42,10 +42,11 @@ function materialize() {
 
     $('input.counter').characterCounter();
 
-
+    
 }
 // 1N4AL3AP6DN452526
 function verify_vin(vin){
+    console.log("clicked3!")
     vresult; 
     $.ajax({
         url: "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/",
@@ -54,18 +55,19 @@ function verify_vin(vin){
         dataType: "json",
         success: function(result)
         {
+            
             vresult = result;
             if (vresult.Message == "No data found" || vresult.Results[0].ErrorCode.indexOf("0") != 0 ){
                 // alert(vresult.Results[0].ErrorCode)
-                // console.log(vresult.Results[0].ErrorCode)
+                console.log(vresult.Results[0].ErrorCode)
                 $("#error_msg").html(`${vresult.Results[0].ErrorCode}`);
                 $("#modal1").modal('open')
                 return 0;
             }else{
           console.log(result);
-          $(`#brand${drivers}`).val($(`#brand${drivers}`).val() + vresult.Results[0].Make);
-          $(`#year${drivers}`).val($(`#year${drivers}`).val() + vresult.Results[0].ModelYear);
-          $(`#model${drivers}`).val($(`#model${drivers}`).val() + vresult.Results[0].Model);
+          $(`#brand${cars}`).val($(`#brand${cars}`).val() + vresult.Results[0].Make);
+          $(`#year${cars}`).val($(`#year${cars}`).val() + vresult.Results[0].ModelYear);
+          $(`#model${cars}`).val($(`#model${cars}`).val() + vresult.Results[0].Model);
             }
 
         },
@@ -75,19 +77,22 @@ function verify_vin(vin){
             console.log(thrownError);
         }
     });
+
+    
 }
 
 
 $(window).on("load", function () {
     
     materialize();
-   
-    $("#verify_vin").on("click", function () {
     
-        verify_vin(document.getElementById(`VIN${drivers}`).value);
+    $("#verify_vin").on("click", function () {
+        console.log("clicked!")
+
+        verify_vin(document.getElementById(`VIN${cars}`).value);
         
     });
-
+       
 
     $("#add_btn").on("click", function () {
 
@@ -299,13 +304,13 @@ $(window).on("load", function () {
                 </div>
                 <div class="row">
                     <div class="input field col s3 offset-m1 m3">
-                        <input type="text" name="year${cars}" placeholder="year" />
+                        <input type="text" id="year${cars}" name="year${cars}" placeholder="year" />
                     </div>
                     <div class="input field col s3 ">
-                        <input type="text" name="brand${cars}" placeholder="brand" />
+                        <input type="text" id="brand${cars}" name="brand${cars}" placeholder="brand" />
                     </div>
                     <div class="input field col s3 ">
-                        <input type="text" name="model${cars}" placeholder="model" />
+                        <input type="text" id="model${cars}" name="model${cars}" placeholder="model" />
                     </div>
                 </div>
 
