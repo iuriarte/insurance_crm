@@ -1,6 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import tornado.log
+import datetime as dt
 
 import os
 import bcrypt
@@ -22,12 +23,12 @@ class TemplateHandler(tornado.web.RequestHandler):
 
 
 class PageHandler(TemplateHandler):
-  def get(self, page):
+  def get(self, page="index"):
     page = page + '.html'
     self.set_header(
       'Cache-Control',
       'no-store, no-cache, must-revalidate, max-age=0')
-    
+
     conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
     cur = conn.cursor()
     cur.execute("""
@@ -39,7 +40,7 @@ class PageHandler(TemplateHandler):
     for d in data:
       names.append({'FirstName':d[0],'LastName': d[1], 'PhoneNumber':d[2], 'PolicyNumber':d[3]})
     cur.execute("""
-    SELECT c.first_name || ' ' || c.last_name as name, c.phone, round(cast(date_part('day',p.effective_date) as integer),0) as day, cast(p.effective_date as date) as inception_date, 
+    SELECT c.first_name || ' ' || c.last_name as name, c.phone, round(cast(date_part('day',p.effective_date) as integer),0) as day, cast(p.effective_date as date) as inception_date,
       case when pp.status = 'P' then 'PAID' else 'UNPAID' end as paid, round(p.premium_amt,2) as premium, n.note, co.name as carrier, p.policy_number  FROM crm.customer c
     JOIN crm.note n on n.customer_id = c.id
     JOIN crm.policy_customer pc on pc.customer_id = c.id
@@ -47,7 +48,7 @@ class PageHandler(TemplateHandler):
     JOIN crm.company co on co.id = p.carrier_id
     JOIN (
       SELECT policy_id, status FROM crm.policy_payment pp
-        WHERE date_part('month',payment_date) = date_part('month', now()) and date_part('year',payment_date) = date_part('year', now()) 
+        WHERE date_part('month',payment_date) = date_part('month', now()) and date_part('year',payment_date) = date_part('year', now())
         and status <> 'C') pp on pp.policy_id = p.id
     WHERE pc.active_flag = 1 and pc.primary_flag = TRUE
     ORDER BY date_part('day',p.effective_date);
@@ -57,6 +58,56 @@ class PageHandler(TemplateHandler):
     cur.close()
     conn.close()
 
+class FormHandler(TemplateHandler):
+    def get(self, page='form'):
+      page = page + '.html'
+      self.render_template(page, {})
+
+
+    def post(self, err):
+        # customerentry = []
+        # formdata = self.get_body_arguments()
+        # for d in formdata:
+        #     customerentry.append({'first_name':d[0],'last_name': d[1], 'phone_number':d[2], 'policy_number':d[3]})
+        #     print(customerentry)
+        form = self.request.body_arguments
+        print(form)
+        fname = self.get_body_argument("first_name", None)
+        lname = self.get_body_argument("last_name", None)
+        phone = self.get_body_argument("cell_phone", None)
+        bdate = self.get_body_argument("birthdate", None)
+        email = self.get_body_argument("email", None)
+        occupation = self.get_body_argument("occupation", None)
+        street = self.get_body_argument("street", None)
+        city = self.get_body_argument("city", None)
+        state = self.get_body_argument("state", None)
+        zip = self.get_body_argument("zip", None)
+        print(phone, bdate)
+        print(fname, lname)
+        conn = psycopg2.connect("dbname=d68rkgeo1f7evn user=tecxzujvjhtuqa password=5bcd1cc1608e591b0902b121c51e59107fc0070321324547528309e67db18aca host=ec2-107-20-249-68.compute-1.amazonaws.com")
+        cur = conn.cursor()
+
+        # Still NOT workin
+        print(fname, lname)
+        cur.execute("INSERT INTO crm.customer (first_name, last_name, phone, birthdate, email,occupation, address, city, state, zip, created_date, updated_date) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (fname, lname, phone, bdate, email, occupation, street, city, state, zip, dt.datetime.now(), dt.datetime.now()))
+        conn.commit()
+
+        print(fname, lname)
+
+        # self.render_template('form-success.html',{})
+        # success_msg = u"?success=" + tornado.escape.url_escape("customer Successfully")
+        # self.redirect(u"/success" + success_msg)
+        cur.close()
+        conn.close()
+
+        self.render_template("success.html", {'form': form})
+
+
+class frm_submit(TemplateHandler):
+    def post(self, data):
+        form = self.request.body_arguments
+        print(form)
+        self.render_template("success.html", {'form': form})
 
 class LoginHandler(TemplateHandler):
   def get(self, page='login'):
@@ -117,12 +168,12 @@ class RegisterHandler(LoginHandler):
       self.redirect(u"/register" + success_msg)
       cur.close()
       conn.close()
-class frm_submit(TemplateHandler):
-  def post(self, data):
-    
-    form = self.request.body_arguments
-    self.render_template("success.html", {'form': form})
-  
+# class frm_submit(TemplateHandler):
+#   def post(self, data):
+#
+#     form = self.request.body_arguments
+#     self.render_template("success.html", {'form': form})
+
 
 def make_app():
   return tornado.web.Application([
@@ -132,15 +183,16 @@ def make_app():
     (r"/(register)", RegisterHandler),
     (r"/(tempsearch)", PageHandler),
     (r"/(index)", PageHandler),
-    (r"/(form)", PageHandler),
-    (r"/(customer)", PageHandler),        
-    (r"/(success)", frm_submit)
+    (r"/(form)", FormHandler),
+    (r"/(customer)", PageHandler),
+    (r"/(success)", FormHandler),
+    (r"/",PageHandler),
   ], autoreload=True)
 
 if __name__ == "__main__":
   tornado.log.enable_pretty_logging()
 
   app = make_app()
-  PORT=int(os.environ.get('PORT', '8888'))
+  PORT=int(os.environ.get('PORT', '8181'))
   app.listen(PORT)
   tornado.ioloop.IOLoop.current().start()
